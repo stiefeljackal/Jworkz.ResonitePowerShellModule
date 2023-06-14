@@ -1,0 +1,104 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ExternalLibraries" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BaseX">
+      <HintPath>..\ExternalLibraries\BaseX.dll</HintPath>
+    </Reference>
+    <Reference Include="Ben.Demystifier">
+      <HintPath>..\ExternalLibraries\Ben.Demystifier.dll</HintPath>
+    </Reference>
+    <Reference Include="CloudX.Shared">
+      <HintPath>..\ExternalLibraries\CloudX.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeX">
+      <HintPath>..\ExternalLibraries\CodeX.dll</HintPath>
+    </Reference>
+    <Reference Include="crunch.NET">
+      <HintPath>..\ExternalLibraries\crunch.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="FreeImageNET">
+      <HintPath>..\ExternalLibraries\FreeImageNET.dll</HintPath>
+    </Reference>
+    <Reference Include="FrooxEngine">
+      <HintPath>..\ExternalLibraries\FrooxEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="LZMA">
+      <HintPath>..\ExternalLibraries\LZMA.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Connections.Abstractions">
+      <HintPath>..\ExternalLibraries\Microsoft.AspNetCore.Connections.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Connections.Client">
+      <HintPath>..\ExternalLibraries\Microsoft.AspNetCore.Http.Connections.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Connections.Common">
+      <HintPath>..\ExternalLibraries\Microsoft.AspNetCore.Http.Connections.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features">
+      <HintPath>..\ExternalLibraries\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.SignalR.Client">
+      <HintPath>..\ExternalLibraries\Microsoft.AspNetCore.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.SignalR.Client.Core">
+      <HintPath>..\ExternalLibraries\Microsoft.AspNetCore.SignalR.Client.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.SignalR.Common">
+      <HintPath>..\ExternalLibraries\Microsoft.AspNetCore.SignalR.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.SignalR.Protocols.Json">
+      <HintPath>..\ExternalLibraries\Microsoft.AspNetCore.SignalR.Protocols.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection">
+      <HintPath>..\ExternalLibraries\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <HintPath>..\ExternalLibraries\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging">
+      <HintPath>..\ExternalLibraries\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>..\ExternalLibraries\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options">
+      <HintPath>..\ExternalLibraries\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives">
+      <HintPath>..\ExternalLibraries\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Octokit">
+      <HintPath>..\ExternalLibraries\Octokit.dll</HintPath>
+    </Reference>
+    <Reference Include="SignalR.Strong">
+      <HintPath>..\ExternalLibraries\SignalR.Strong.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipelines">
+      <HintPath>..\ExternalLibraries\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+	<Content Include="$(SolutionDir)ExternalLibraries\FreeImage.dll" CopyToOutputDirectory="Always" />
+	<Content Include="$(SolutionDir)ExternalLibraries\crnlib.dll" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mime-Detective" Version="23.6.1">
+      <GeneratePathProperty>True</GeneratePathProperty>
+    </PackageReference>
+    <PackageReference Include="Mime-Detective.Definitions.Exhaustive" Version="23.6.1">
+      <GeneratePathProperty>True</GeneratePathProperty>
+    </PackageReference>
+    <PackageReference Include="System.Management.Automation" Version="7.3.4" />
+  </ItemGroup>
+
+</Project>
