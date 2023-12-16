@@ -44,7 +44,7 @@ public class GetRecord : ResoniteConnectedCmdlet
 
         if (ParameterSetName == PARAM_SET_ASSETURI)
         {
-            RecordUri.ThrowOnNullOrEmpty("'RecordUri' cannot be null");
+            RecordUri.ThrowOnNullOrEmpty("'RecordUri' cannot be null or empty");
             record = Client!.GetRecord(RecordUri!).GetAwaiterResult();
         }
         else

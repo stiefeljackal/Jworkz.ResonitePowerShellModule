@@ -12,7 +12,7 @@ using Utilities;
 public class NewCredential : BasePSCmdlet
 {
     /// <summary>
-    /// Username of the NeosVR account
+    /// Username of the account
     /// </summary>
     [Parameter(Mandatory = true)]
     public string Username = "";
