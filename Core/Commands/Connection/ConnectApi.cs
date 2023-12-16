@@ -7,6 +7,7 @@ namespace Jworkz.ResonitePowerShellModule.Core.Commands.Connection;
 using Abstract;
 using Clients;
 using Clients.Abstract;
+using Elements.Core;
 using Models;
 using Utilities;
 
@@ -62,6 +63,11 @@ public class ConnectApi : BasePSCmdlet
         }
 
         _productVersion = PSVersionInfo.PSVersion.ToString();
+
+        var noopDelegate = (string msg) => { };
+        UniLog.OnError += noopDelegate;
+        UniLog.OnWarning += noopDelegate;
+        UniLog.OnLog += noopDelegate;
     }
 
     protected override void ProcessRecord()
