@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Jworkz.ResonitePowerShellModule.Core.Models;
+namespace Jworkz.ResonitePowerShellModule.Core;
 
 using Clients.Abstract;
 
@@ -69,13 +69,13 @@ public class PowerShellStatusSource : IUserStatusSource
 
     public void OnlineStatusChanged(OnlineStatus status)
     {
-        this.LoadingOnlineStatus = false;
+        LoadingOnlineStatus = false;
         if (_skyFrostInterfaceClient.ForceInvisible) { return; }
 
         _skyFrostInterfaceClient.CurrentOnlineStatus = status;
     }
 
-    public void SignIn() => this.LoadingOnlineStatus = true;
+    public void SignIn() => LoadingOnlineStatus = true;
 
     public Task SignOut() => Task.CompletedTask;
 
