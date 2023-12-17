@@ -2,7 +2,7 @@
 
 namespace Jworkz.ResonitePowerShellModule.Core.Models;
 
-public class Owner
+public struct Owner
 {
     public readonly string Id;
 
