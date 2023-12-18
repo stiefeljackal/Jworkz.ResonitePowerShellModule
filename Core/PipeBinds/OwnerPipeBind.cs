@@ -8,7 +8,7 @@ using Models;
 public class OwnerPipeBind
 {
     private readonly string? _ownerId;
-    private readonly Owner? _owner;
+    private Owner? _owner;
 
     public string OwnerId
     {
@@ -30,24 +30,22 @@ public class OwnerPipeBind
         _owner = new Owner(group);
     }
 
-    internal bool IsValidOwnerId()
-    {
-        var ownerId = _owner?.Id ?? _ownerId ?? string.Empty;
-        return IdUtil.GetOwnerType(ownerId) != OwnerType.INVALID;
-    }
+    public bool IsValidOwnerId() => IdUtil.GetOwnerType(OwnerId) != OwnerType.INVALID;
 
 
-    internal async Task<Owner?> GetOwner(ISkyFrostInterfaceClient client)
+    internal async Task<Owner?> GetOwner(ISkyFrostInterfaceClient? client)
     {
+        if (client == null) { throw new ArgumentNullException(nameof(client)); }
+
         if (_owner != null) { return _owner; }
 
-        if (_ownerId == client.CurrentUser.Id) { return new Owner(client.CurrentUser); }
+        if (_ownerId == client.CurrentUser.Id) { return _owner ??= new Owner(client.CurrentUser); }
 
         var ownerType = IdUtil.GetOwnerType(_ownerId);
         switch(ownerType)
         {
-            case OwnerType.User: return new Owner(await client.GetUser(_ownerId!));
-            case OwnerType.Group: return new Owner(await client.GetGroup(_ownerId!));
+            case OwnerType.User: return _owner ??= new Owner(await client.GetUser(_ownerId!));
+            case OwnerType.Group: return _owner ??= new Owner(await client.GetGroup(_ownerId!));
         }
 
         return null;
