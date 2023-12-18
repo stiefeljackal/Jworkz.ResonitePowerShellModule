@@ -11,7 +11,7 @@ using Utilities;
 [Cmdlet(VerbsCommon.Get, "ResonitePing")]
 public class PingApi : ResoniteConnectedCmdlet
 {
-    protected override void ProcessRecord()
+    protected override void ExecuteCmdlet()
     {
         var isPingable = Client!.IsPingable().GetAwaiterResult();
         WriteObject(isPingable);

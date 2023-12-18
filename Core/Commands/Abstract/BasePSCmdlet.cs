@@ -7,6 +7,8 @@ namespace Jworkz.ResonitePowerShellModule.Core.Commands.Abstract;
 /// </summary>
 public class BasePSCmdlet : PSCmdlet
 {
+    private bool _hasError = false;
+
     /// <summary>
     /// Error action specified for this cmdlet if called
     /// </summary>
@@ -15,12 +17,21 @@ public class BasePSCmdlet : PSCmdlet
         get => MyInvocation.BoundParameters["ErrorAction"].ToString()?.ToLowerInvariant();
     }
 
-    protected override void BeginProcessing()
+    protected override sealed void BeginProcessing()
     {
-        base.BeginProcessing();
+        try
+        {
+            base.BeginProcessing();
+            PrepareCmdlet();
+        }
+        catch (PipelineStoppedException) { throw; }
+        catch (Exception ex)
+        {
+            ExamineThrownException(ex);
+        }
     }
 
-    protected override void EndProcessing()
+    protected override sealed void EndProcessing()
     {
         base.EndProcessing();
     }
@@ -35,27 +46,28 @@ public class BasePSCmdlet : PSCmdlet
         return MyInvocation.BoundParameters.ContainsKey(paramName);
     }
 
-    protected bool HasStoppingErrorAction()
-    {
-        return IsParamSpecified("ErrorAction") && (new[] { "stop", "ignore", "silentlycontinue" }).Contains(ErrorActionSpecified);
-    }
+    protected bool HasStoppingErrorAction() =>
+        IsParamSpecified("ErrorAction") && (new[] { "stop", "ignore", "silentlycontinue" }).Contains(ErrorActionSpecified);
 
-    protected bool HasIgnoreErrorAction()
-    {
-        return IsParamSpecified("ErrorAction") && ErrorActionSpecified == "ignore";
-    }
+    protected bool HasIgnoreErrorAction() =>
+        IsParamSpecified("ErrorAction") && ErrorActionSpecified == "ignore";
+
+    protected virtual void PrepareCmdlet() { }
 
     protected virtual void ExecuteCmdlet() { }
 
-    protected override void ProcessRecord()
+    protected override sealed void ProcessRecord()
     {
+        if (_hasError) { return; }
+
         try
         {
             ExecuteCmdlet();
         }
-        catch(Exception ex)
+        catch (PipelineStoppedException) { throw; }
+        catch (Exception ex)
         {
-            throw new PSInvalidOperationException(ex.Message);
+            ExamineThrownException(ex);
         }
     }
 
@@ -74,5 +86,27 @@ public class BasePSCmdlet : PSCmdlet
     internal void WriteError(Exception ex, ErrorCategory errorCategory, object? target = null) 
     {
         this.WriteError(new ErrorRecord(ex, string.Empty, errorCategory, target));
+    }
+
+    private void ExamineThrownException(Exception ex)
+    {
+        _hasError = true;
+        var errorMessage = ex.Message;
+
+        if (!HasStoppingErrorAction())
+        {
+            throw new PSInvalidOperationException(errorMessage);
+        }
+
+        if (!HasIgnoreErrorAction())
+        {
+            ex.Data["TimeStampUtc"] = DateTime.UtcNow;
+
+            var errDetails = new ErrorDetails(errorMessage);
+            var errRecord = new ErrorRecord(ex, "EXCEPTION", ErrorCategory.WriteError, null);
+            errRecord.ErrorDetails = errDetails;
+
+            WriteError(errRecord);
+        }
     }
 }

@@ -19,7 +19,7 @@ public class DisconnectApi : BasePSCmdlet
     [Parameter]
     public ISkyFrostInterfaceClient? Client;
 
-    protected override void ProcessRecord()
+    protected override void PrepareCmdlet()
     {
         if (!IsParamSpecified("Client"))
         {
@@ -29,8 +29,11 @@ public class DisconnectApi : BasePSCmdlet
         {
             throw new InvalidOperationException("Specified client is null.");
         }
+    }
 
-        Client?.Logout();
+    protected override void ExecuteCmdlet()
+    {
+        Client!.Logout();
 
         if (Client == SkyFrostInterfacePool.Current)
         {

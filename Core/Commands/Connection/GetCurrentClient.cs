@@ -11,7 +11,7 @@ using Utilities;
 [Cmdlet(VerbsCommon.Get, "ResoniteCurrentSkyFrostClient")]
 public class GetCurrentClient : BasePSCmdlet
 {
-    protected override void ProcessRecord()
+    protected override void ExecuteCmdlet()
     {
         WriteObject(SkyFrostInterfacePool.Current);
     }

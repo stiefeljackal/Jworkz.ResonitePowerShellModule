@@ -15,14 +15,15 @@ public class NewCredential : BasePSCmdlet
     /// Username of the account
     /// </summary>
     [Parameter(Mandatory = true)]
-    public string Username = "";
+    public string Username = string.Empty;
 
-    protected override void ProcessRecord()
+    protected override void PrepareCmdlet()
     {
-        if (string.IsNullOrEmpty(Username))
-        {
-            throw new PSArgumentException("Username cannot be null or empty.", nameof(Username));
-        }
+        Username.ThrowOnNullOrEmpty("Username cannot be null or empty.");
+    }
+
+    protected override void ExecuteCmdlet()
+    {
 
         var password = Host.PromptForPassword();
 

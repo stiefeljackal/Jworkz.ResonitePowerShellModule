@@ -70,30 +70,23 @@ public class ConnectApi : BasePSCmdlet
         UniLog.OnLog += noopDelegate;
     }
 
-    protected override void ProcessRecord()
+    protected override void ExecuteCmdlet()
     {
         if (Credential == null)
         {
             this.WriteCredentialNull();
             return;
         }
-        try
-        {
-            var client = Connect().GetAwaiter().GetResult();
 
-            if (ReturnClient.ToBool())
-            {
-                WriteObject(client);
-            }
-            else
-            {
-                SkyFrostInterfacePool.Current = client;
-            }
-        }
-        catch (Exception ex)
+        var client = Connect().GetAwaiter().GetResult();
+
+        if (ReturnClient.ToBool())
         {
-            ex.Data["TimeStampUtc"] = DateTime.UtcNow;
-            throw;
+            WriteObject(client);
+        }
+        else
+        {
+            SkyFrostInterfacePool.Current = client;
         }
     }
 

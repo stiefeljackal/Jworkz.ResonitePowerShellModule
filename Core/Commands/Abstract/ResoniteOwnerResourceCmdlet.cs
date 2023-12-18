@@ -28,10 +28,12 @@ public class ResoniteOwnerResourceCmdlet : ResoniteConnectedCmdlet
     /// Ensure the owner is either a user or group type
     /// </summary>
     /// <exception cref="PSInvalidOperationException"></exception>
-    protected override void BeginProcessing()
+    protected override void PrepareCmdlet()
     {
-        var ownerType = OwnerType;
-        base.BeginProcessing();
+        base.PrepareCmdlet();
+
+        var ownerType = Owner?.OwnerType ?? OwnerType.INVALID;
+
         if (ownerType == OwnerType.INVALID || ownerType == OwnerType.Machine)
         {
             throw new PSInvalidOperationException($"OwnerId '{OwnerId}' is not valid.");
