@@ -59,6 +59,13 @@ public class BasePSCmdlet : PSCmdlet
         }
     }
 
+    public void StartProcessExecution()
+    {
+        BeginProcessing();
+        ProcessRecord();
+        EndProcessing();
+    }
+
     protected override void StopProcessing()
     {
         base.StopProcessing();
