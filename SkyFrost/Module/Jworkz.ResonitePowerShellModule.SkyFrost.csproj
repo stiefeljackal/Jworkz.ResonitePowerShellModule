@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<None Remove="ExternalLibraries" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Reference Include="Elements.Core">
+	  <HintPath>$(SolutionDir)ExternalLibraries\Elements.Core.dll</HintPath>
+	</Reference>
+	<Reference Include="Elements.Assets">
+	  <HintPath>$(SolutionDir)ExternalLibraries\Elements.Assets.dll</HintPath>
+	</Reference>
+	<Reference Include="Skyfrost.Base">
+	  <HintPath>$(SolutionDir)ExternalLibraries\Skyfrost.Base.dll</HintPath>
+	</Reference>
+	<Reference Include="Hardware.Info">
+	  <HintPath>$(SolutionDir)ExternalLibraries\Hardware.Info.dll</HintPath>
+	</Reference>
+	<Reference Include="SignalR.Strong">
+	  <HintPath>$(SolutionDir)ExternalLibraries\SignalR.Strong.dll</HintPath>
+	</Reference>
+	<Content Include="$(SolutionDir)ExternalLibraries\FreeImage.dll" CopyToOutputDirectory="Always" />
+	<Content Include="$(SolutionDir)ExternalLibraries\crnlib.dll" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management.Automation" Version="7.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Lib\Jworkz.ResonitePowerShellModule.Core.csproj" />
+  </ItemGroup>
+	
+</Project>
