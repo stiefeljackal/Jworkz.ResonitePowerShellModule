@@ -38,19 +38,19 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Enums.NET" Version="4.0.1" />
-	  <PackageReference Include="Microsoft.AspNetCore.Connections.Abstractions" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Client" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Common" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.Json" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
-	  <PackageReference Include="Microsoft.Bcl.TimeProvider" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+	<PackageReference Include="Enums.NET" Version="4.0.1" />
+	<PackageReference Include="Microsoft.AspNetCore.Connections.Abstractions" Version="8.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.Http.Connections.Client" Version="8.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.Http.Connections.Common" Version="8.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="8.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="8.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.Json" Version="8.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="8.0.0" />
+	<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
+	<PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
+	<PackageReference Include="Microsoft.Bcl.TimeProvider" Version="8.0.0" />
+	<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
     <PackageReference Include="Mime-Detective" Version="23.10.1">
       <GeneratePathProperty>True</GeneratePathProperty>
     </PackageReference>
