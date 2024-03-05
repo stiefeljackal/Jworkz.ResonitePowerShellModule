@@ -37,5 +37,10 @@ AddDll "Elements.Assets"
 AddDll "Skyfrost.Base"
 AddDll "Hardware.Info"
 AddDll "SignalR.Strong"
+AddDll "MimeDetective"
+AddDll "BrotliSharpLib"
+AddDll "Brotli.Core"
+AddDll "brolib_x64"
+AddDll "Newtonsoft.Json.Bson"
 AddDll "crnlib" 'Resonite_Data\Plugins\x86_64\'
 AddDll "FreeImage" 'Resonite_Data\Plugins\x86_64\'

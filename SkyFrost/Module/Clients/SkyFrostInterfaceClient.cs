@@ -55,7 +55,7 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
         config.WithGzip(Platform.IsWindows);
         config.WithUserAgent(productName.Replace(' ', '_'), version);
 
-        _skyfrostInterface = new SkyFrostInterface(Uid, config);
+        _skyfrostInterface = new SkyFrostInterface(Uid, Uid, config);
         _skyfrostInterface.Api.DefaultRetries = 0;
     }
 
@@ -189,7 +189,7 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
 
     public async Task Login(PSCredential credential, string totp = "")
     {
-        var secretMachineId = Guid.NewGuid().ToString();
+        var secretMachineId = Uid;
         PasswordLogin loginAuth = new()
         {
             Password = credential.Password.ToPlainText(),

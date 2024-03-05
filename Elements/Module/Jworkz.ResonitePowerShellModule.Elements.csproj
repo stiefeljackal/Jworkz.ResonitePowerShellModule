@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<None Remove="ExternalLibraries" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Reference Include="MimeDetective">
+	  <HintPath>$(SolutionDir)ExternalLibraries\MimeDetective.dll</HintPath>
+	</Reference>
+	<Reference Include="Elements.Core">
+	  <HintPath>$(SolutionDir)ExternalLibraries\Elements.Core.dll</HintPath>
+	</Reference>
+	<Reference Include="Brotli.Core">
+	  <HintPath>$(SolutionDir)ExternalLibraries\Brotli.Core.dll</HintPath>
+	</Reference>
+	<Reference Include="Newtonsoft.Json.Bson">
+	  <HintPath>$(SolutionDir)ExternalLibraries\Newtonsoft.Json.Bson.dll</HintPath>
+	</Reference>
+	<Reference Include="BrotliSharpLib">
+	  <HintPath>$(SolutionDir)ExternalLibraries\BrotliSharpLib.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)\Core\Lib\Jworkz.ResonitePowerShellModule.Core.csproj" />
+  </ItemGroup>
+
+</Project>
