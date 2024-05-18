@@ -41,9 +41,9 @@ public sealed class OwnerPipeBind
 
     internal async Task<Owner?> GetOwner(ISkyFrostInterfaceClient? client)
     {
-        if (client == null) { throw new ArgumentNullException(nameof(client)); }
-
         if (_owner != null) { return _owner; }
+
+        if (client == null) { throw new ArgumentNullException(nameof(client)); }
 
         if (_ownerId == client.CurrentUser.Id) { return _owner ??= new Owner(client.CurrentUser); }
 
