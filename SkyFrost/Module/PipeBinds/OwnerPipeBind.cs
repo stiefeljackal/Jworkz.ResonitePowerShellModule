@@ -1,11 +1,12 @@
 ﻿using SkyFrost.Base;
+using System.Management.Automation;
 
 namespace Jworkz.ResonitePowerShellModule.SkyFrost.PipeBinds;
 
 using Clients.Abstract;
 using Models;
 
-public class OwnerPipeBind
+public sealed class OwnerPipeBind
 {
     private readonly string? _ownerId;
     private Owner? _owner;
@@ -51,8 +52,13 @@ public class OwnerPipeBind
         {
             case OwnerType.User: return _owner ??= new Owner(await client.GetUser(_ownerId!));
             case OwnerType.Group: return _owner ??= new Owner(await client.GetGroup(_ownerId!));
+            default: return null;
         }
-
-        return null;
     }
+
+    public static implicit operator OwnerPipeBind(string ownerId) => new OwnerPipeBind(ownerId);
+
+    public static implicit operator OwnerPipeBind(User owner) => new OwnerPipeBind(owner);
+
+    public static implicit operator OwnerPipeBind(Group owner) => new OwnerPipeBind(owner);
 }
