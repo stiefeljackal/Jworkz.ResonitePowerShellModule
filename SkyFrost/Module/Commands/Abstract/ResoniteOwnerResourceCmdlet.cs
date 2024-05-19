@@ -30,7 +30,7 @@ public abstract class ResoniteOwnerResourceCmdlet : ResoniteConnectedCmdlet
     {
         base.ExecuteCmdlet();
 
-        if (OwnerType == OwnerTypeEnum.INVALID || OwnerType == OwnerTypeEnum.Machine)
+        if (!Owner.IsValidOwnerId())
         {
             throw new PSInvalidOperationException($"OwnerId '{OwnerId}' is not valid.");
         }

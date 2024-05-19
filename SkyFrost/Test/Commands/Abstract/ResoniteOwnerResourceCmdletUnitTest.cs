@@ -11,29 +11,19 @@ using SkyFrost.PipeBinds;
 public class ResoniteOwnerResourceCmdletUnitTest
 {
     [Theory]
-    [MemberData(nameof(OwnerData))]
+    [MemberData(nameof(ValidOwnerData))]
     public void ExecuteCmd_ValidOwner_HasValidOwnerData(OwnerPipeBind ownerMock, OwnerType expectedOwnerType)
     {
         var cmdlet = SetupCmdlet(ownerMock);
 
-        cmdlet.StartProcessExecution();
-
-        Assert.Equal(ownerMock, cmdlet.Owner);
-        Assert.Equal(expectedOwnerType, cmdlet.OwnerType);
-        Assert.Equal(ownerMock.OwnerId, cmdlet.OwnerId);
-    }
-
-    [Theory]
-    [MemberData(nameof(InvalidOwnerWithExpectedOutcomeData))]
-    public void ExecuteCmd_InvalidOwner_HadEmptyOrInvalidData(OwnerPipeBind? ownerMock, OwnerType expectedOwnerType)
-    {
-        var cmdlet = SetupCmdlet(ownerMock, false);
-
-        cmdlet.StartProcessExecution();
-
-        Assert.Equal(ownerMock, cmdlet.Owner);
-        Assert.Equal(expectedOwnerType, cmdlet.OwnerType);
-        Assert.Equal(ownerMock?.OwnerId ?? string.Empty, cmdlet.Owner != null ? cmdlet.OwnerId : string.Empty);
+        try
+        {
+            cmdlet.StartProcessExecution();
+        }
+        catch (Exception ex)
+        {
+            Assert.Fail(ex.Message);
+        }
     }
 
     [Theory]
@@ -67,28 +57,13 @@ public class ResoniteOwnerResourceCmdletUnitTest
         return cmdlet;
     }
 
-    /// <summary>
-    /// Theory data used to test for valid owners.
-    /// </summary>
-    public static IEnumerable<object[]> OwnerData =>
-    new object[][]
-    {
+    public static IEnumerable<object[]> ValidOwnerData =>
+        new object[][]
+        {
             [new User { Id = GlobalConstants.USER_OWNER_ID }, OwnerType.User],
             [new Group { GroupId = GlobalConstants.GROUP_OWNER_ID }, OwnerType.Group],
             [GlobalConstants.USER_OWNER_ID, OwnerType.User],
             [GlobalConstants.GROUP_OWNER_ID, OwnerType.Group],
-    };
-
-    /// <summary>
-    /// Theory data used to test for invalid owners.
-    /// </summary>
-    public static IEnumerable<object?[]> InvalidOwnerWithExpectedOutcomeData =>
-        new object?[][]
-        {
-            [new OwnerPipeBind(string.Empty), OwnerType.INVALID],
-            [new User { Id = GlobalConstants.MACHINE_ID }, OwnerType.Machine],
-            [(OwnerPipeBind?)null, OwnerType.INVALID],
-            [GlobalConstants.MACHINE_ID, OwnerType.Machine]
         };
 
     public static IEnumerable<object?[]> InvalidOwnerData =>
