@@ -13,7 +13,8 @@ public class SimpleDataTreeRootNode : SimpleDataTreeNode
 
     public SimpleDataTreeRootNode(DataTreeDictionary dictionary) : base(dictionary)
     {
-        var hasSlotRoot = _dataKeyValuePairs.TryGetValue("Slot", out var rootSlot);
+        var hasSlotRoot = _dataKeyValuePairs.TryGetValue("Slot", out var rootSlot)
+            || _dataKeyValuePairs.TryGetValue("Slots", out rootSlot);
 
         if (!hasSlotRoot)
         {
