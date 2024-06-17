@@ -59,8 +59,8 @@ public class GetAssetGather : ResoniteAssetInfoCmdlet
 
                 if (IncludeExtension.ToBool())
                 {
-                    var results = MimeExaminer.Inspect(bytes);
-                    var extension = results.FirstOrDefault()?.Definition.File.Extensions.FirstOrDefault();
+                    var fileType = MimeExaminer.Inspect(bytes);
+                    var extension = fileType.Extension;
 
                     if (!string.IsNullOrEmpty(extension))
                     {

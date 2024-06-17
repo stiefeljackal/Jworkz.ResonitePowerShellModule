@@ -1,4 +1,5 @@
-﻿using SkyFrost.Base;
+﻿using Elements.Core;
+using SkyFrost.Base;
 using SkyFrostOutputDevice = SkyFrost.Base.OutputDevice;
 
 namespace Jworkz.ResonitePowerShellModule.SkyFrost;

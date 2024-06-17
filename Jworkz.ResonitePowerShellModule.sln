@@ -6,8 +6,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D1AF6715-5327-407E-A645-00E900D9314B}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Default.props = Default.props
 		LICENSE = LICENSE
-		LinkLibraries.ps1 = LinkLibraries.ps1
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jworkz.ResonitePowerShellMo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jworkz.ResonitePowerShellModule.Mocks", "Mocks\Jworkz.ResonitePowerShellModule.Mocks.csproj", "{52A002AE-430F-46A0-869C-C13B0FFCFEE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jworkz.ResonitePowerShellModule.Elements", "Elements\Module\Jworkz.ResonitePowerShellModule.Elements.csproj", "{56CA3B01-BBD4-4F94-966B-4597752B4076}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jworkz.ResonitePowerShellModule.Elements", "Elements\Module\Jworkz.ResonitePowerShellModule.Elements.csproj", "{56CA3B01-BBD4-4F94-966B-4597752B4076}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jworkz.ResonitePowerShellModule.Elements.Test", "Elements\Test\Jworkz.ResonitePowerShellModule.Elements.Test.csproj", "{7F806649-E2CD-4AFF-A6AC-12F52C63FBDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jworkz.ResonitePowerShellModule.Elements.Test", "Elements\Test\Jworkz.ResonitePowerShellModule.Elements.Test.csproj", "{7F806649-E2CD-4AFF-A6AC-12F52C63FBDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

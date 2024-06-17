@@ -7,27 +7,29 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<None Remove="ExternalLibraries" />
+    <Reference Include="MimeDetective">
+      <HintPath>$(ResonitePath)Resonite_Data\Managed\MimeDetective.dll</HintPath>
+    </Reference>
+    <Reference Include="Elements.Core">
+      <HintPath>$(ResonitePath)Resonite_Data\Managed\Elements.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Brotli.Core">
+      <HintPath>$(ResonitePath)Resonite_Data\Managed\Brotli.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Bson">
+      <HintPath>$(ResonitePath)Resonite_Data\Managed\Newtonsoft.Json.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="BrotliSharpLib">
+      <HintPath>$(ResonitePath)Resonite_Data\Managed\BrotliSharpLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
-	<Reference Include="MimeDetective">
-	  <HintPath>$(SolutionDir)ExternalLibraries\MimeDetective.dll</HintPath>
-	</Reference>
-	<Reference Include="Elements.Core">
-	  <HintPath>$(SolutionDir)ExternalLibraries\Elements.Core.dll</HintPath>
-	</Reference>
-	<Reference Include="Brotli.Core">
-	  <HintPath>$(SolutionDir)ExternalLibraries\Brotli.Core.dll</HintPath>
-	</Reference>
-	<Reference Include="Newtonsoft.Json.Bson">
-	  <HintPath>$(SolutionDir)ExternalLibraries\Newtonsoft.Json.Bson.dll</HintPath>
-	</Reference>
-	<Reference Include="BrotliSharpLib">
-	  <HintPath>$(SolutionDir)ExternalLibraries\BrotliSharpLib.dll</HintPath>
-	</Reference>
+    <Content Include="$(ResonitePath)Resonite_Data\Managed\brolib_x64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
-	
+  
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)\Core\Lib\Jworkz.ResonitePowerShellModule.Core.csproj" />
   </ItemGroup>
