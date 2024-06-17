@@ -25,18 +25,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Lib\Jworkz.ResonitePowerShellModule.Core.csproj" />
+    <ProjectReference Include="..\..\Mocks\Jworkz.ResonitePowerShellModule.Mocks.csproj" />
+    <ProjectReference Include="..\Module\Jworkz.ResonitePowerShellModule.SkyFrost.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Skyfrost.Base">
       <HintPath>$(ResonitePath)Resonite_Data\Managed\Skyfrost.Base.dll</HintPath>
     </Reference>
     <Reference Include="Skyfrost.Base.Models">
       <HintPath>$(ResonitePath)Resonite_Data\Managed\Skyfrost.Base.Models.dll</HintPath>
     </Reference>
-  </ItemGroup>
-    
-  <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)\Core\Lib\Jworkz.ResonitePowerShellModule.Core.csproj" />
-    <ProjectReference Include="$(SolutionDir)\Mocks\Jworkz.ResonitePowerShellModule.Mocks.csproj" />
-    <ProjectReference Include="$(SolutionDir)\SkyFrost\Module\Jworkz.ResonitePowerShellModule.SkyFrost.csproj" />
   </ItemGroup>
 
 </Project>

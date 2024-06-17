@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Jworkz.ResonitePowerShellModule.SkyFrost.Test.PipeBinds;
 
-using Jworkz.ResonitePowerShellModule.SkyFrost.Clients.Abstract;
+using SkyFrost.Clients.Abstract;
 using SkyFrost.Models;
 using SkyFrost.PipeBinds;
 
