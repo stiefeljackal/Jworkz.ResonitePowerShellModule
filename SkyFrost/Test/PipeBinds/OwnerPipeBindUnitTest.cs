@@ -70,7 +70,7 @@ public class OwnerPipeBindUnitTest
     }
 
     [Fact]
-    public async void CallGetOwner_UserOwner_ReturnsOwnerObject()
+    public async Task CallGetOwner_UserOwner_ReturnsOwnerObject()
     {
         User user = new() { Id = GlobalConstants.USER_OWNER_ID };
         OwnerPipeBind ownerMock = new(user);
@@ -80,7 +80,7 @@ public class OwnerPipeBindUnitTest
     }
 
     [Fact]
-    public async void CallGetOwner_GroupOwner_ReturnsOwnerObject()
+    public async Task CallGetOwner_GroupOwner_ReturnsOwnerObject()
     {
         Group group = new() { GroupId = GlobalConstants.GROUP_OWNER_ID };
         OwnerPipeBind ownerMock = new(group);
@@ -90,7 +90,7 @@ public class OwnerPipeBindUnitTest
     }
 
     [Fact]
-    public async void CallGetOwner_NoOwnerObjectAndNullClient_ThrowsException()
+    public async Task CallGetOwner_NoOwnerObjectAndNullClient_ThrowsException()
     {
         OwnerPipeBind ownerMock = new (GlobalConstants.USER_OWNER_ID);
 
@@ -98,7 +98,7 @@ public class OwnerPipeBindUnitTest
     }
 
     [Fact]
-    public async void CallGetOwner_OwnerIsCurrentUser_ReturnsOwnerObject()
+    public async Task CallGetOwner_OwnerIsCurrentUser_ReturnsOwnerObject()
     {
         User currentUser = new() { Id = GlobalConstants.USER_OWNER_ID };
         Mock<ISkyFrostInterfaceClient> skyFrostClientMock = new();
@@ -115,7 +115,7 @@ public class OwnerPipeBindUnitTest
     }
 
     [Fact]
-    public async void CallGetOwner_UserOwnerId_ReturnsOwnerObject()
+    public async Task CallGetOwner_UserOwnerId_ReturnsOwnerObject()
     {
         User user = new() { Id = GlobalConstants.USER_OWNER_ID };
         Mock<ISkyFrostInterfaceClient> skyFrostClientMock = new();
@@ -134,7 +134,7 @@ public class OwnerPipeBindUnitTest
     }
 
     [Fact]
-    public async void CallGetOwner_GroupOwnerId_ReturnsOwnerObject()
+    public async Task CallGetOwner_GroupOwnerId_ReturnsOwnerObject()
     {
         Group group = new() { GroupId = GlobalConstants.GROUP_OWNER_ID };
         Mock<ISkyFrostInterfaceClient> skyFrostClientMock = new();
@@ -155,13 +155,13 @@ public class OwnerPipeBindUnitTest
     [Theory]
     [InlineData("Mock")]
     [InlineData(GlobalConstants.MACHINE_ID)]
-    public async void CallGetOwner_InvalidOwnerId_ReturnsNull(string? id)
+    public async Task CallGetOwner_InvalidOwnerId_ReturnsNull(string? id)
     {
         Mock<ISkyFrostInterfaceClient> skyFrostClientMock = new();
 
         skyFrostClientMock.Setup(m => m.CurrentUser).Returns(() => new User());
 
-        OwnerPipeBind ownerPipeBind = new(id);
+        OwnerPipeBind ownerPipeBind = new(id ?? string.Empty);
         var owner = await ownerPipeBind.GetOwner(skyFrostClientMock.Object);
 
         Assert.Null(owner);
