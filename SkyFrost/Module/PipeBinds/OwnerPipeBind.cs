@@ -46,12 +46,12 @@ public sealed class OwnerPipeBind
 
         if (client == null) { throw new ArgumentNullException(nameof(client)); }
 
-        if (_ownerId == client.CurrentUser.Id) { return _owner ??= new Owner(client.CurrentUser); }
+        if (_ownerId == client.CurrentUser.Id) { return _owner = new Owner(client.CurrentUser); }
 
         switch(OwnerType)
         {
-            case OwnerType.User: return _owner ??= new Owner(await client.GetUser(_ownerId!));
-            case OwnerType.Group: return _owner ??= new Owner(await client.GetGroup(_ownerId!));
+            case OwnerType.User: return _owner = new Owner(await client.GetUser(_ownerId!));
+            case OwnerType.Group: return _owner = new Owner(await client.GetGroup(_ownerId!));
             default: return null;
         }
     }

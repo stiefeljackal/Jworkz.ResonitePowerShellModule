@@ -127,6 +127,14 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
         return result.Entity;
     }
 
+    public async Task<IEnumerable<Record>> GetRecordsByOwner(string ownerId, string? tag = null, string? path = null)
+    {
+        var result = await Raw.Records.GetRecords<Record>(ownerId, tag, path);
+        CheckCloudResult(result, "Unable to fetch owner records from Cloud");
+
+        return result.Entity;
+    }
+
     public async Task<IEnumerable<Record>> GetRecordsAtPath(string ownerId, string path)
     {
         var result = await Raw.Records.GetRecords<Record>(ownerId, path: path);

@@ -16,8 +16,8 @@ using SkyFrost.PipeBinds;
 public class OwnerPipeBindUnitTest
 {
     [Theory]
-    [InlineData(GlobalConstants.USER_OWNER_ID, OwnerType.User)]
-    [InlineData(GlobalConstants.GROUP_OWNER_ID, OwnerType.Group)]
+    [InlineData(GlobalConstants.MOCK_USER_ID, OwnerType.User)]
+    [InlineData(GlobalConstants.MOCK_GROUP_ID, OwnerType.Group)]
     public void TakePipeBind_ValidOwnerId_IsValidOwner(string expectedOwnerId, OwnerType expectedOwnerType)
     {
         OwnerPipeBind ownerMock = new(expectedOwnerId);
@@ -30,35 +30,53 @@ public class OwnerPipeBindUnitTest
     [Fact]
     public void TakePipeBind_ValidOwnerObject_IsValidOwner()
     {
-        User userMock = new() { Id = GlobalConstants.USER_OWNER_ID };
+        User userMock = new() { Id = GlobalConstants.MOCK_USER_ID };
         OwnerPipeBind ownerMock = new(userMock);
 
         Assert.True(ownerMock.IsValidOwnerId());
         Assert.Equal(OwnerType.User, ownerMock.OwnerType);
-        Assert.Equal(GlobalConstants.USER_OWNER_ID, ownerMock.OwnerId);
+        Assert.Equal(GlobalConstants.MOCK_USER_ID, ownerMock.OwnerId);
     }
 
     [Fact]
     public void TakePipeBind_ValidGroupObject_IsValidOwner()
     {
-        Group groupMock = new() { GroupId = GlobalConstants.GROUP_OWNER_ID };
+        Group groupMock = new() { GroupId = GlobalConstants.MOCK_GROUP_ID };
         OwnerPipeBind ownerMock = new(groupMock);
 
         Assert.True(ownerMock.IsValidOwnerId());
         Assert.Equal(OwnerType.Group, ownerMock.OwnerType);
-        Assert.Equal(GlobalConstants.GROUP_OWNER_ID, ownerMock.OwnerId);
+        Assert.Equal(GlobalConstants.MOCK_GROUP_ID, ownerMock.OwnerId);
     }
 
     [Theory]
     [InlineData("", OwnerType.INVALID)]
-    [InlineData(GlobalConstants.MACHINE_ID, OwnerType.Machine)]
-    public void TakePipeBind_InvalidOwner_IsInvalidOwner(string expectedOwnerId, OwnerType expectedOwnerType)
+    [InlineData(GlobalConstants.MOCK_MACHINE_ID, OwnerType.Machine)]
+    public void TakePipeBind_InvalidOwnerId_IsInvalidOwner(string expectedOwnerId, OwnerType expectedOwnerType)
     {
         OwnerPipeBind ownerMock = new(expectedOwnerId);
 
         Assert.False(ownerMock.IsValidOwnerId());
         Assert.Equal(expectedOwnerType, ownerMock.OwnerType);
         Assert.Equal(expectedOwnerId, ownerMock.OwnerId);
+    }
+
+    [Fact]
+    public void TakePipeBind_InvalidUserId_IsInvalidOwner()
+    {
+        OwnerPipeBind ownerMock = new(new User { Id = null });
+
+        Assert.False(ownerMock.IsValidOwnerId());
+        Assert.Equal(string.Empty, ownerMock.OwnerId);
+    }
+
+    [Fact]
+    public void TakePipeBind_InvalidGroupId_IsInvalidOwner()
+    {
+        OwnerPipeBind ownerMock = new(new Group { GroupId = null });
+
+        Assert.False(ownerMock.IsValidOwnerId());
+        Assert.Equal(string.Empty, ownerMock.OwnerId);
     }
 
     [Fact]
@@ -72,7 +90,7 @@ public class OwnerPipeBindUnitTest
     [Fact]
     public async Task CallGetOwner_UserOwner_ReturnsOwnerObject()
     {
-        User user = new() { Id = GlobalConstants.USER_OWNER_ID };
+        User user = new() { Id = GlobalConstants.MOCK_USER_ID };
         OwnerPipeBind ownerMock = new(user);
 
         var owner = await ownerMock.GetOwner(null);
@@ -82,7 +100,7 @@ public class OwnerPipeBindUnitTest
     [Fact]
     public async Task CallGetOwner_GroupOwner_ReturnsOwnerObject()
     {
-        Group group = new() { GroupId = GlobalConstants.GROUP_OWNER_ID };
+        Group group = new() { GroupId = GlobalConstants.MOCK_GROUP_ID };
         OwnerPipeBind ownerMock = new(group);
 
         var owner = await ownerMock.GetOwner(null);
@@ -92,7 +110,7 @@ public class OwnerPipeBindUnitTest
     [Fact]
     public async Task CallGetOwner_NoOwnerObjectAndNullClient_ThrowsException()
     {
-        OwnerPipeBind ownerMock = new (GlobalConstants.USER_OWNER_ID);
+        OwnerPipeBind ownerMock = new (GlobalConstants.MOCK_USER_ID);
 
         await Assert.ThrowsAsync<ArgumentNullException>(async () => await ownerMock.GetOwner(null));
     }
@@ -100,7 +118,7 @@ public class OwnerPipeBindUnitTest
     [Fact]
     public async Task CallGetOwner_OwnerIsCurrentUser_ReturnsOwnerObject()
     {
-        User currentUser = new() { Id = GlobalConstants.USER_OWNER_ID };
+        User currentUser = new() { Id = GlobalConstants.MOCK_USER_ID };
         Mock<ISkyFrostInterfaceClient> skyFrostClientMock = new();
 
         skyFrostClientMock.Setup(m => m.CurrentUser).Returns(() => currentUser);
@@ -117,60 +135,54 @@ public class OwnerPipeBindUnitTest
     [Fact]
     public async Task CallGetOwner_UserOwnerId_ReturnsOwnerObject()
     {
-        User user = new() { Id = GlobalConstants.USER_OWNER_ID };
+        User user = new() { Id = GlobalConstants.MOCK_USER_ID };
         Mock<ISkyFrostInterfaceClient> skyFrostClientMock = new();
 
         skyFrostClientMock.Setup(m => m.CurrentUser).Returns(() => new User());
         skyFrostClientMock
-            .Setup(m => m.GetUser(It.Is<string>(i => i == GlobalConstants.USER_OWNER_ID)))
+            .Setup(m => m.GetUser(It.Is<string>(i => i == GlobalConstants.MOCK_USER_ID)))
             .Returns(() => Task.FromResult(user));
 
-        OwnerPipeBind ownerPipeBind = new(GlobalConstants.USER_OWNER_ID);
+        OwnerPipeBind ownerPipeBind = new(GlobalConstants.MOCK_USER_ID);
         var owner = await ownerPipeBind.GetOwner(skyFrostClientMock.Object);
 
+        skyFrostClientMock.Verify(m => m.GetUser(It.Is<string>(i => i == GlobalConstants.MOCK_USER_ID)), Times.Once);
         Assert.NotNull(owner);
         Assert.Equal(new Owner(user), owner);
-        skyFrostClientMock.Verify(m => m.GetUser(It.Is<string>(i => i == GlobalConstants.USER_OWNER_ID)), Times.Once);
     }
 
     [Fact]
     public async Task CallGetOwner_GroupOwnerId_ReturnsOwnerObject()
     {
-        Group group = new() { GroupId = GlobalConstants.GROUP_OWNER_ID };
+        Group group = new() { GroupId = GlobalConstants.MOCK_GROUP_ID };
         Mock<ISkyFrostInterfaceClient> skyFrostClientMock = new();
 
         skyFrostClientMock.Setup(m => m.CurrentUser).Returns(() => new User());
         skyFrostClientMock
-            .Setup(m => m.GetGroup(It.Is<string>(i => i == GlobalConstants.GROUP_OWNER_ID)))
+            .Setup(m => m.GetGroup(It.Is<string>(i => i == GlobalConstants.MOCK_GROUP_ID)))
             .Returns(() => Task.FromResult(group));
 
-        OwnerPipeBind ownerPipeBind = new(GlobalConstants.GROUP_OWNER_ID);
+        OwnerPipeBind ownerPipeBind = new(GlobalConstants.MOCK_GROUP_ID);
         var owner = await ownerPipeBind.GetOwner(skyFrostClientMock.Object);
 
         Assert.NotNull(owner);
         Assert.Equal(new Owner(group), owner);
-        skyFrostClientMock.Verify(m => m.GetGroup(It.Is<string>(i => i == GlobalConstants.GROUP_OWNER_ID)), Times.Once);
+        skyFrostClientMock.Verify(m => m.GetGroup(It.Is<string>(i => i == GlobalConstants.MOCK_GROUP_ID)), Times.Once);
     }
 
     [Theory]
+    [InlineData("")]
     [InlineData("Mock")]
-    [InlineData(GlobalConstants.MACHINE_ID)]
-    public async Task CallGetOwner_InvalidOwnerId_ReturnsNull(string? id)
+    [InlineData(GlobalConstants.MOCK_MACHINE_ID)]
+    public async Task CallGetOwner_InvalidOwnerId_ReturnsNull(string id)
     {
         Mock<ISkyFrostInterfaceClient> skyFrostClientMock = new();
 
         skyFrostClientMock.Setup(m => m.CurrentUser).Returns(() => new User());
 
-        OwnerPipeBind ownerPipeBind = new(id ?? string.Empty);
+        OwnerPipeBind ownerPipeBind = new(id);
         var owner = await ownerPipeBind.GetOwner(skyFrostClientMock.Object);
 
         Assert.Null(owner);
     }
-
-    public static IEnumerable<object?[]> InvalidOwnerData =>
-        new object?[][]
-        {
-            ["Mock", OwnerType.INVALID],
-            [GlobalConstants.MACHINE_ID, OwnerType.Machine]
-        };
 }

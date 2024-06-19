@@ -19,6 +19,7 @@ public class ResoniteOwnerResourceCmdletUnitTest
         try
         {
             cmdlet.StartProcessExecution();
+            Assert.Equal(expectedOwnerType, cmdlet.OwnerType);
         }
         catch (Exception ex)
         {
@@ -60,18 +61,18 @@ public class ResoniteOwnerResourceCmdletUnitTest
     public static IEnumerable<object[]> ValidOwnerData =>
         new object[][]
         {
-            [new User { Id = GlobalConstants.USER_OWNER_ID }, OwnerType.User],
-            [new Group { GroupId = GlobalConstants.GROUP_OWNER_ID }, OwnerType.Group],
-            [GlobalConstants.USER_OWNER_ID, OwnerType.User],
-            [GlobalConstants.GROUP_OWNER_ID, OwnerType.Group],
+            [new User { Id = GlobalConstants.MOCK_USER_ID }, OwnerType.User],
+            [new Group { GroupId = GlobalConstants.MOCK_GROUP_ID }, OwnerType.Group],
+            [GlobalConstants.MOCK_USER_ID, OwnerType.User],
+            [GlobalConstants.MOCK_GROUP_ID, OwnerType.Group],
         };
 
     public static IEnumerable<object?[]> InvalidOwnerData =>
         new object?[][]
         {
             [new OwnerPipeBind(string.Empty)],
-            [new User { Id = GlobalConstants.MACHINE_ID }],
+            [new User { Id = GlobalConstants.MOCK_MACHINE_ID }],
             [(OwnerPipeBind?)null],
-            [GlobalConstants.MACHINE_ID]
+            [GlobalConstants.MOCK_MACHINE_ID]
         };
 }

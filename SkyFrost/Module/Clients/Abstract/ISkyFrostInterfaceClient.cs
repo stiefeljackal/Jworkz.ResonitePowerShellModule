@@ -26,6 +26,8 @@ public interface ISkyFrostInterfaceClient
 
     Task<Record> GetRecord(Uri recordUri);
 
+    Task<IEnumerable<Record>> GetRecordsByOwner(string ownerId, string? tag = null, string? path = null);
+
     Task<IEnumerable<Record>> GetRecordsAtPath(string ownerId, string path);
 
     Task<IEnumerable<Record>> GetRecords(IEnumerable<RecordId> recordIds);
