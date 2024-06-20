@@ -15,6 +15,7 @@ using PipeBinds;
 public class GetRecordByOwner : ResoniteOwnerResourceCmdlet
 {
     private const string PARAM_SET_RECORDSPATHFILTER = "Filter records by path";
+    private const string PARAM_SET_RECORDSPATHFILTERINCLUDINGHIERARCHY = "Filter records by path (include the hierarchy)";
     private const string PARAM_SET_RECORDSTAGFILTER = "Filter records by a tag";
     private const string PARAM_SET_GETEXACTRECORDATPATH = "Get exact record at path";
 
@@ -24,6 +25,7 @@ public class GetRecordByOwner : ResoniteOwnerResourceCmdlet
     [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = PARAM_SET_RECORDSPATHFILTER)]
     [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = PARAM_SET_RECORDSTAGFILTER)]
     [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = PARAM_SET_GETEXACTRECORDATPATH)]
+    [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = PARAM_SET_RECORDSPATHFILTERINCLUDINGHIERARCHY)]
     public override OwnerPipeBind? Owner { get; set; }
 
     /// <summary>
@@ -31,6 +33,7 @@ public class GetRecordByOwner : ResoniteOwnerResourceCmdlet
     /// </summary>
     [Parameter(Position = 1, Mandatory = false, ParameterSetName = PARAM_SET_RECORDSPATHFILTER)]
     [Parameter(Position = 1, Mandatory = true, ParameterSetName = PARAM_SET_GETEXACTRECORDATPATH)]
+    [Parameter(Position = 1, Mandatory = true, ParameterSetName = PARAM_SET_RECORDSPATHFILTERINCLUDINGHIERARCHY)]
     public string? Path;
 
     /// <summary>
@@ -46,6 +49,12 @@ public class GetRecordByOwner : ResoniteOwnerResourceCmdlet
     public SwitchParameter AsExactRecordPath;
 
     /// <summary>
+    /// Switch that determines if records from other paths under the provided path should be included
+    /// </summary>
+    [Parameter(Position = 2, Mandatory = true, ParameterSetName = PARAM_SET_RECORDSPATHFILTERINCLUDINGHIERARCHY)]
+    public SwitchParameter IncludeHierarchy;
+
+    /// <summary>
     /// Optional access key used to access a record that is normally private
     /// </summary>
     [Parameter(ParameterSetName = PARAM_SET_GETEXACTRECORDATPATH)]
@@ -59,6 +68,17 @@ public class GetRecordByOwner : ResoniteOwnerResourceCmdlet
         {
             var record = Client!.GetRecordAtPath(OwnerId, Path!, AccessKey).GetAwaiterResult();
             WriteObject(record);
+            return;
+        }
+
+        if (IncludeHierarchy.IsPresent)
+        {
+            var recordsAsyncEnumerator = Client!.GetRecordsInHierarchy(OwnerId, Path!).GetAsyncEnumerator();
+
+            while(recordsAsyncEnumerator.MoveNextAsync().AsTask().GetAwaiterResult())
+            {
+                WriteObject(recordsAsyncEnumerator.Current);
+            }
             return;
         }
 

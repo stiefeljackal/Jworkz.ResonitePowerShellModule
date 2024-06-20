@@ -8,6 +8,7 @@ namespace Jworkz.ResonitePowerShellModule.Mocks;
 /// Mock implementation
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[ExcludeFromCodeCoverage]
 public class MockCommandRuntime<T> : ICommandRuntime
 {
     private List<object?> _output = new();

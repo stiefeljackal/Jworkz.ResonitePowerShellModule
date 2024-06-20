@@ -26,10 +26,21 @@
     <Reference Include="SignalR.Strong">
       <HintPath>$(ResonitePath)Resonite_Data\Managed\SignalR.Strong.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces">
+      <HintPath>$(ResonitePath)Resonite_Data\Managed\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Mime-Detective">
       <HintPath>$(ResonitePath)Resonite_Data\Managed\MimeDetective.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="AddAssemblyAliasToReactiveAsync" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <ReferencePath Condition=" '%(FileName)' == 'Microsoft.Bcl.AsyncInterfaces' ">
+        <Aliases>reactive</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
 
   <ItemGroup>
     <PackageReference Include="System.Management.Automation" Version="7.4.2" />

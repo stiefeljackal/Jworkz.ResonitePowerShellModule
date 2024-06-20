@@ -28,6 +28,8 @@ public interface ISkyFrostInterfaceClient
 
     Task<IEnumerable<Record>> GetRecordsByOwner(string ownerId, string? tag = null, string? path = null);
 
+    IAsyncEnumerable<Record> GetRecordsInHierarchy(string ownerId, string path);
+
     Task<Record> GetRecordAtPath(string ownerId, string path, string? accessKey = null);
 
     Task<IEnumerable<Record>> GetRecords(IEnumerable<RecordId> recordIds);

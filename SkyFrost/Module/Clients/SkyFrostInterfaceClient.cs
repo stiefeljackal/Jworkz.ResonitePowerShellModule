@@ -1,6 +1,7 @@
 ﻿using System.Management.Automation;
 using SkyFrost.Base;
 using Elements.Assets;
+using System.Collections.Generic;
 
 namespace Jworkz.ResonitePowerShellModule.SkyFrost.Clients;
 
@@ -133,6 +134,16 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
         CheckCloudResult(result, "Unable to fetch owner records from Cloud");
 
         return result.Entity;
+    }
+
+    public async IAsyncEnumerable<Record> GetRecordsInHierarchy(string ownerId, string path)
+    {
+        var asyncEnumerator = Raw.Records.GetRecordsInHierarchy<Record>(ownerId, path).GetAsyncEnumerator();
+
+        while(await asyncEnumerator.MoveNextAsync().AsTask())
+        {
+            yield return asyncEnumerator.Current;
+        }
     }
 
     public async Task<Record> GetRecordAtPath(string ownerId, string path, string? accessKey = null)

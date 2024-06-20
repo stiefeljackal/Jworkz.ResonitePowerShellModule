@@ -1,7 +1,9 @@
-﻿using SkyFrost.Base;
+﻿using System.Diagnostics.CodeAnalysis;
+using SkyFrost.Base;
 
 namespace Jworkz.ResonitePowerShellModule.SkyFrost.Test;
 
+[ExcludeFromCodeCoverage]
 internal static class GlobalConstants
 {
     public const string MOCK_USER_ID = "U-Mock";

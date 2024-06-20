@@ -1,4 +1,5 @@
-﻿using System.Management.Automation;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Management.Automation;
 using Moq;
 using SkyFrost.Base;
 
@@ -8,6 +9,7 @@ using SkyFrost.Clients.Abstract;
 using SkyFrost.Commands.Abstract;
 using SkyFrost.PipeBinds;
 
+[ExcludeFromCodeCoverage]
 public class ResoniteOwnerResourceCmdletUnitTest
 {
     [Theory]

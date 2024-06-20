@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System.Diagnostics.CodeAnalysis;
+using Moq;
 using SkyFrost.Base;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using SkyFrost.Clients.Abstract;
 using SkyFrost.Models;
 using SkyFrost.PipeBinds;
 
+[ExcludeFromCodeCoverage]
 public class OwnerPipeBindUnitTest
 {
     [Theory]

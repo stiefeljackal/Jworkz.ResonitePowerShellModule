@@ -1,4 +1,5 @@
-﻿using SkyFrost.Base;
+﻿using System.Diagnostics.CodeAnalysis;
+using SkyFrost.Base;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Jworkz.ResonitePowerShellModule.SkyFrost.Test.Models;
 
 using SkyFrost.Models;
 
+[ExcludeFromCodeCoverage]
 public class OwnerUnitTest
 {
     [Fact]
