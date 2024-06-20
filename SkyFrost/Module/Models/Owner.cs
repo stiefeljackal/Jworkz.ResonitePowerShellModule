@@ -1,4 +1,5 @@
 ﻿using SkyFrost.Base;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Jworkz.ResonitePowerShellModule.SkyFrost.Models;
 
@@ -27,4 +28,19 @@ public struct Owner
         Name = group.Name;
         OwnerType = OwnerType.Group;
     }
+
+    public override bool Equals([NotNullWhen(true)] object? obj)
+    {
+        if (obj == null || !(obj is Owner)) {  return false; }
+
+        var otherOwner = (Owner)obj;
+        
+        return Id == otherOwner.Id && Name == otherOwner.Name && OwnerType == otherOwner.OwnerType;
+    }
+
+    public override int GetHashCode() => Id.GetHashCode();
+
+    public static bool operator ==(Owner left, Owner right) => left.Equals(right);
+
+    public static bool operator !=(Owner left, Owner right) => !left.Equals(right);
 }

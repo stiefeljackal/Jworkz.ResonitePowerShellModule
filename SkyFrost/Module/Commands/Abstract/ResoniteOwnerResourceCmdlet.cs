@@ -1,17 +1,16 @@
 ﻿using System.Management.Automation;
-using SkyFrost.Base;
+using OwnerTypeEnum = SkyFrost.Base.OwnerType;
 
 namespace Jworkz.ResonitePowerShellModule.SkyFrost.Commands.Abstract;
 
 using PipeBinds;
 
-public class ResoniteOwnerResourceCmdlet : ResoniteConnectedCmdlet
+public abstract class ResoniteOwnerResourceCmdlet : ResoniteConnectedCmdlet
 {
     /// <summary>
     /// Owner of the resource
     /// </summary>
-    [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
-    public OwnerPipeBind? Owner;
+    public virtual OwnerPipeBind? Owner { get; set; }
 
     /// <summary>
     /// Id of the owner
@@ -19,16 +18,19 @@ public class ResoniteOwnerResourceCmdlet : ResoniteConnectedCmdlet
     public string OwnerId => Owner?.OwnerId ?? string.Empty;
 
     /// <summary>
+    /// User type of the owner
+    /// </summary>
+    public OwnerTypeEnum OwnerType => Owner?.OwnerType ?? OwnerTypeEnum.INVALID;
+
+    /// <summary>
     /// Ensure the owner is either a user or group type
     /// </summary>
     /// <exception cref="PSInvalidOperationException"></exception>
-    protected override void PrepareCmdlet()
+    protected override void ExecuteCmdlet()
     {
-        base.PrepareCmdlet();
+        base.ExecuteCmdlet();
 
-        var ownerType = Owner?.OwnerType ?? OwnerType.INVALID;
-
-        if (ownerType == OwnerType.INVALID || ownerType == OwnerType.Machine)
+        if (Owner == null || !Owner.IsValidOwnerId())
         {
             throw new PSInvalidOperationException($"OwnerId '{OwnerId}' is not valid.");
         }

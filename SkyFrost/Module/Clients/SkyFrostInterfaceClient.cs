@@ -1,6 +1,7 @@
 ﻿using System.Management.Automation;
 using SkyFrost.Base;
 using Elements.Assets;
+using System.Collections.Generic;
 
 namespace Jworkz.ResonitePowerShellModule.SkyFrost.Clients;
 
@@ -127,9 +128,32 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
         return result.Entity;
     }
 
-    public async Task<IEnumerable<Record>> GetRecordsAtPath(string ownerId, string path)
+    public async Task<IEnumerable<Record>> GetRecordsByOwner(string ownerId, string? tag = null, string? path = null)
     {
-        var result = await Raw.Records.GetRecords<Record>(ownerId, path: path);
+        var result = await Raw.Records.GetRecords<Record>(ownerId, tag, path);
+        CheckCloudResult(result, "Unable to fetch owner records from Cloud");
+
+        return result.Entity;
+    }
+
+    public async IAsyncEnumerable<Record> GetRecordsInHierarchy(string ownerId, string path)
+    {
+        var asyncEnumerator = Raw.Records.GetRecordsInHierarchy<Record>(ownerId, path).GetAsyncEnumerator();
+
+        while(await asyncEnumerator.MoveNextAsync().AsTask())
+        {
+            yield return asyncEnumerator.Current;
+        }
+    }
+
+    public async Task<Record> GetRecordAtPath(string ownerId, string path, string? accessKey = null)
+    {
+        if (!Uri.IsWellFormedUriString(path, UriKind.RelativeOrAbsolute))
+        {
+            path = Uri.EscapeDataString(path);
+        }
+
+        var result = await Raw.Records.GetRecordAtPath<Record>(ownerId, path, accessKey);
         CheckCloudResult(result, "Unable to fetch the full record data");
 
         return result.Entity;
