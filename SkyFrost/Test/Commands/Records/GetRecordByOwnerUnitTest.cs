@@ -37,31 +37,35 @@ public class GetRecordByOwnerUnitTest
         Assert.Equal(recordsMock, runtime.Output);
     }
 
-    /*[Theory]
-    [MemberData(nameof(InvalidOwnerData))]
-    public void ExecuteCmdlet_InvalidOwner_ThrowsError()
+    [Fact]
+    public void ExecuteCmdlet_ExactRecordPath_ReturnsRecordAtPath()
     {
-        IEnumerable<SkyFrostRecord> recordsMock = GetRecordsMock(ownerMock.OwnerId);
         MockCommandRuntime<SkyFrostRecord> runtime = new();
-        Mock<ISkyFrostInterfaceClient> mockSkyFrostClient = new();
+        Mock<ISkyFrostInterfaceClient> skyFrostClientMock = new();
 
-        mockSkyFrostClient
-            .Setup(m => m.GetRecordsByOwner(It.Is<string>(arg => arg == ownerMock.OwnerId), It.Is<string>(arg => arg == null), It.Is<string>(arg => arg == null)))
-            .Returns(() => Task.FromResult(recordsMock));
+        var mockRecord = new SkyFrostRecord();
+        var mockPath = @"Inventory\Mock";
+
+        skyFrostClientMock
+            .Setup(m => m.GetRecordAtPath(It.Is<string>(arg => arg == GlobalConstants.MOCK_USER_ID), It.Is<string>(arg => arg == mockPath), It.Is<string>(arg => arg == null)))
+            .Returns(() => Task.FromResult(mockRecord));
 
         GetRecordByOwner cmdlet = new()
         {
             CommandRuntime = runtime,
-            Owner = ownerMock,
-            Client = mockSkyFrostClient.Object
+            Owner = new OwnerPipeBind(GlobalConstants.MOCK_USER_ID),
+            Path = mockPath,
+            Client = skyFrostClientMock.Object,
+            AsExactRecordPath = true
         };
 
         cmdlet.StartProcessExecution();
 
-        Assert.Equal(ownerMock.OwnerId, cmdlet.OwnerId);
-        Assert.Equal(ownerMock.OwnerType, cmdlet.OwnerType);
-        Assert.Equal(recordsMock, runtime.Output);
-    }*/
+        skyFrostClientMock.Verify(m => m.GetRecordAtPath(It.Is<string>(arg => arg == GlobalConstants.MOCK_USER_ID), It.Is<string>(arg => arg == mockPath), It.Is<string>(arg => arg == null)), Times.Once);
+
+        Assert.Equal(mockRecord, runtime.Output.First());
+        Assert.Single(runtime.Output);
+    }
 
     private static IEnumerable<SkyFrostRecord> GetRecordsMock(string ownerId)
     {
@@ -83,12 +87,5 @@ public class GetRecordByOwnerUnitTest
             new [] { new Group { GroupId = GlobalConstants.MOCK_GROUP_ID } },
             new [] { GlobalConstants.MOCK_USER_ID },
             new [] { GlobalConstants.MOCK_GROUP_ID }
-        };
-
-    public static IEnumerable<object[]> InvalidOwnerData =>
-        new object[][]
-        {
-            new [] { new User { Id = GlobalConstants.MOCK_MACHINE_ID } },
-            new [] { new OwnerPipeBind(string.Empty) }
         };
 }

@@ -135,9 +135,14 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
         return result.Entity;
     }
 
-    public async Task<IEnumerable<Record>> GetRecordsAtPath(string ownerId, string path)
+    public async Task<Record> GetRecordAtPath(string ownerId, string path, string? accessKey = null)
     {
-        var result = await Raw.Records.GetRecords<Record>(ownerId, path: path);
+        if (!Uri.IsWellFormedUriString(path, UriKind.RelativeOrAbsolute))
+        {
+            path = Uri.EscapeDataString(path);
+        }
+
+        var result = await Raw.Records.GetRecordAtPath<Record>(ownerId, path, accessKey);
         CheckCloudResult(result, "Unable to fetch the full record data");
 
         return result.Entity;

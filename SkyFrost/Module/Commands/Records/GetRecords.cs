@@ -46,15 +46,9 @@ public class GetRecords : ResoniteConnectedCmdlet
             case PARAM_SET_BATCHRECORD:
                 records = Client?.GetRecords(BatchRecordIdCollection).GetAwaiterResult();
                 break;
-            case PARAM_SET_CURRENTUSERBATCHRECORD:
+            default:
                 var currentUserId = Client?.CurrentUser.Id;
                 records = Client?.GetRecords(BatchRecordIdCollectionForCurrentUser.Select(r => new RecordId { Id = r, OwnerId = currentUserId })).GetAwaiterResult();
-                break;
-            case PARAM_SET_CURRENTUSERRECORDFROMPATH:
-                records = Client?.GetRecordsAtPath(Client?.CurrentUser.Id!, Path).GetAwaiterResult();
-                break;
-            default:
-                records = Client?.GetRecordsAtPath(OwnerId, Path).GetAwaiterResult();
                 break;
         }
 
