@@ -271,7 +271,7 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
             var content = cloudResult.Content;
             var state = cloudResult.State;
             var contentMsg = content != null ? $" | {content}" : string.Empty;
-            throw new Exception($"{(string.IsNullOrEmpty(msg) ? "Resonite returned a cloud error for this request" : msg)}: {state}{contentMsg}");
+            throw new Exception($"{(string.IsNullOrEmpty(msg) ? $"{Raw.Platform.Name} returned a cloud error for this request" : msg)}: {state}{contentMsg}");
         }
     }
 }

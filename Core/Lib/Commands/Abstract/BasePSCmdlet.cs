@@ -2,6 +2,9 @@
 
 namespace Jworkz.ResonitePowerShellModule.Core.Commands.Abstract;
 
+using Core.Models;
+using Core.Models.Abstract;
+
 /// <summary>
 /// Base class for all cmdlets
 /// </summary>
@@ -15,6 +18,20 @@ public class BasePSCmdlet : PSCmdlet
     public string? ErrorActionSpecified
     {
         get => MyInvocation.BoundParameters["ErrorAction"].ToString()?.ToLowerInvariant();
+    }
+
+    public string CurrentLocation
+    {
+        get => PSState.GetCurrentPwd() ?? string.Empty;
+    }
+
+    public IFileSystem FileSystem { get; set; } = new FileSystem();
+
+    public IPSState PSState { get; set; }
+
+    public BasePSCmdlet()
+    {
+        PSState = new PSState(() => SessionState);
     }
 
     protected override sealed void BeginProcessing()

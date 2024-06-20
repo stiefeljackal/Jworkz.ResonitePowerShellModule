@@ -14,6 +14,7 @@ using Elements.Core;
 /// Connects to the Resonite Api interface via SkyFrost with either the default or provided Uris
 /// </summary>
 [Cmdlet("Connect", "ResoniteApi", DefaultParameterSetName = PARAM_SET_CREDENTIALONLY)]
+[OutputType([typeof(ISkyFrostInterfaceClient), typeof(void)])]
 public class ConnectApi : BasePSCmdlet
 {
     private const string PARAM_SET_CREDENTIALONLY = "Credential";
@@ -98,39 +99,12 @@ public class ConnectApi : BasePSCmdlet
             Config = SkyFrostConfig.SKYFROST_PRODUCTION;
         }
 
-        if (IsParamSpecified("ApiUri"))
-        {
-            throw new NotImplementedException("Cannot provided a different Uri as of yet");
-        }
-        else
-        {
-            client = new SkyFrostInterfaceClient(Config, _productName, _productVersion, DisableSignalR.ToBool());
-            var userStatusSrc = new PowerShellStatusSource(client, _productName, _productVersion);
-            client.StatusSource = userStatusSrc;
-        }
+        client = new SkyFrostInterfaceClient(Config, _productName, _productVersion, DisableSignalR.ToBool());
+        var userStatusSrc = new PowerShellStatusSource(client, _productName, _productVersion);
+        client.StatusSource = userStatusSrc;
 
         await client.Login(Credential!);
 
         return client;
-    }
-
-    private static bool IsHostPingable(string uri)
-    {
-        var isPingable = false;
-        Ping? pinger = null;
-
-        try
-        {
-            pinger = new Ping();
-            var reply = pinger.Send(uri);
-            isPingable = reply.Status == IPStatus.Success;
-        }
-        catch (PingException) { }
-        finally
-        {
-            pinger?.Dispose();
-        }
-
-        return isPingable;
     }
 }
