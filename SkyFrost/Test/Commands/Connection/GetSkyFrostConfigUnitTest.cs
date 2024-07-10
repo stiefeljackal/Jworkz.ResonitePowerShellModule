@@ -12,8 +12,6 @@ namespace Jworkz.ResonitePowerShellModule.SkyFrost.Test.Commands.Connection;
 
 using Core.Models.Abstract;
 using SkyFrost.Commands.Connection;
-using System.Management.Automation;
-using System.Management.Automation.Runspaces;
 
 [ExcludeFromCodeCoverage]
 public class GetSkyFrostConfigUnitTest

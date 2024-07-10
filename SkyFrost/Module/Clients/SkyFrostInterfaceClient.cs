@@ -239,9 +239,12 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
 
     public async Task Logout()
     {
-        await _skyfrostInterface.Session.Logout(true).ConfigureAwait(false);
+        if (_skyfrostInterface.Session.CurrentSession != null)
+        {
+            await _skyfrostInterface.Session.Logout(true).ConfigureAwait(false);
+            await _skyfrostInterface.HubStatusController.SignOut();
+        }
 
-        await _skyfrostInterface.HubStatusController.SignOut();
         _skyfrostInterface.Api.Client?.Dispose();
         _skyfrostInterface.SafeHttpClient?.Dispose();
     }
