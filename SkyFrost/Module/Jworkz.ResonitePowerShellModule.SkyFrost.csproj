@@ -43,7 +43,7 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="System.Management.Automation" Version="7.4.2" />
+    <PackageReference Include="System.Management.Automation" Version="7.4.3" />
   </ItemGroup>
 
   <ItemGroup>
