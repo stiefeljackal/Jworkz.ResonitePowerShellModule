@@ -8,6 +8,8 @@ public interface ISkyFrostInterfaceClient
 {
     User CurrentUser { get; }
 
+    IPlatformProfile PlatformProfile { get; }
+
     IUserStatusSource StatusSource { get; set; }
 
     OnlineStatus CurrentOnlineStatus { get; set; }
@@ -22,7 +24,9 @@ public interface ISkyFrostInterfaceClient
 
     Task<AssetInfo> GetOwnedAssetInfo(string hashId, string ownerId = "");
 
-    Task<Record> GetRecord(string ownerId, string recordId);
+    Task<Record> GetRecord(RecordId recordId);
+
+    Task<Record> GetRecord(string ownerId, string rid);
 
     Task<Record> GetRecord(Uri recordUri);
 

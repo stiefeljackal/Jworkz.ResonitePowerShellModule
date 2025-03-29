@@ -21,6 +21,11 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
 
     public User CurrentUser => _skyfrostInterface.CurrentUser;
 
+    /// <summary>
+    /// The platform profile assigned to the SkyFrost client
+    /// </summary>
+    public IPlatformProfile PlatformProfile => _skyfrostInterface.Platform;
+
     public OnlineStatus CurrentOnlineStatus
     {
         get => _skyfrostInterface.Status.OnlineStatus;
@@ -101,9 +106,11 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
         return result.Entity;
     }
 
-    public async Task<Record> GetRecord(string ownerId, string recordId)
+    public Task<Record> GetRecord(RecordId recordId) => GetRecord(recordId.OwnerId, recordId.Id);
+
+    public async Task<Record> GetRecord(string ownerId, string rid)
     {
-        var result = await Raw.Records.GetRecord<Record>(ownerId, recordId);
+        var result = await Raw.Records.GetRecord<Record>(ownerId, rid);
 
         CheckCloudResult(result, "Unable to fetch record");
 
