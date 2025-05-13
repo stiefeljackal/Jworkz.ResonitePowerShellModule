@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="../../Default.props"/>
+
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +25,9 @@
     <Reference Include="SignalR.Strong">
       <HintPath>$(ResonitePath)Resonite_Data\Managed\SignalR.Strong.dll</HintPath>
     </Reference>
+	<Reference Include="Microsoft.AspNetCore.Http.Connections.Common">
+	  <HintPath>$(ResonitePath)Resonite_Data\Managed\Microsoft.AspNetCore.Http.Connections.Common.dll</HintPath>
+	</Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces">
       <HintPath>$(ResonitePath)Resonite_Data\Managed\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -43,7 +45,7 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="System.Management.Automation" Version="7.4.3" />
+    <PackageReference Include="System.Management.Automation" Version="7.5.0" />
   </ItemGroup>
 
   <ItemGroup>
