@@ -16,11 +16,12 @@ public class ResoniteConnectedCmdlet : BasePSCmdlet
     [Parameter(HelpMessage = "Optional client to be used. Defaults to the default current client if null.")]
     public ISkyFrostInterfaceClient? Client;
 
-    protected override void PrepareCmdlet()
+    protected override void PerformPreprocessSetup()
     {
         if (Client == null)
         {
-            Client = SkyFrostInterfacePool.Current ?? throw new InvalidOperationException("A client has not been established yet. Use Connect-ResoniteConnectApi to connect or provide a valid client using -Client.");
+            Client = SkyFrostInterfacePool.Current
+                ?? throw new InvalidOperationException("A client has not been established yet. Use Connect-ResoniteConnectApi to connect or provide a valid client using -Client.");
         }
     }
 }
