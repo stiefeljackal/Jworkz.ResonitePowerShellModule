@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="../../Default.props"/>
+  <Import Project="../../Default.props" />
 
   <PropertyGroup>
     <IsPackable>false</IsPackable>
@@ -23,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Lib\Jworkz.ResonitePowerShellModule.Core.csproj" />
-    <ProjectReference Include="..\..\Mocks\Jworkz.ResonitePowerShellModule.Mocks.csproj" />
     <ProjectReference Include="..\Module\Jworkz.ResonitePowerShellModule.SkyFrost.csproj" />
+	<ProjectReference Include="$(SolutionDir)\Core\Lib\Jworkz.ResonitePowerShellModule.Core.csproj" />
+	<ProjectReference Include="$(SolutionDir)\Core\Mocks\Jworkz.ResonitePowerShellModule.Core.Mocks.csproj" />
   </ItemGroup>
 
   <ItemGroup>

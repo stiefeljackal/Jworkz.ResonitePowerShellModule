@@ -12,6 +12,7 @@ namespace Jworkz.ResonitePowerShellModule.SkyFrost.Commands.Connection;
 
 using Core.Commands.Abstract;
 using Core.Utilities;
+using Core.Models.Abstract;
 
 /// <summary>
 /// Loads a SkyFrost configration that can be used to setup a SkyFrost client
@@ -23,6 +24,10 @@ public class GetSkyFrostConfig : BasePSCmdlet
     [Parameter(Mandatory = true, Position = 0)]
     [ValidateNotNullOrEmpty]
     public string? Path;
+
+    public GetSkyFrostConfig() : base() { }
+
+    public GetSkyFrostConfig(IFileSystem fileSystem) : base(fileSystem) { }
 
     protected override void ExecuteCmdlet()
     {

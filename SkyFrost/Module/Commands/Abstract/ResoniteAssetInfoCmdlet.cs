@@ -3,6 +3,7 @@
 namespace Jworkz.ResonitePowerShellModule.SkyFrost.Commands.Abstract;
 
 using PipeBinds;
+using Core.Models.Abstract;
 
 /// <summary>
 /// Base class for cmdlets that require an AssetInfo object or hash id string
@@ -19,5 +20,10 @@ public class ResoniteAssetInfoCmdlet : ResoniteConnectedCmdlet
     /// Hash id of the assigned AssetInfo object
     /// </summary>
     [Parameter(ValueFromPipelineByPropertyName = true)]
-    public string HashId => AssetInfo.HashId;
+    public string HashId { get; set; } = string.Empty;
+
+    public ResoniteAssetInfoCmdlet() : base() { }
+
+    public ResoniteAssetInfoCmdlet(IFileSystem fileSystem) : base(fileSystem) { }
+
 }
