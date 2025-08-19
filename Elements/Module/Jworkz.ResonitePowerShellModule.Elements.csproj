@@ -29,5 +29,4 @@
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)\Core\Lib\Jworkz.ResonitePowerShellModule.Core.csproj" />
   </ItemGroup>
-
 </Project>

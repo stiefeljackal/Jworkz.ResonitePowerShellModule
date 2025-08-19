@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="../../Default.props"/>
+  <Import Project="../../Default.props" />
 
   <PropertyGroup>
     <IsPackable>false</IsPackable>
@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)\Elements\Module\Jworkz.ResonitePowerShellModule.Elements.csproj" />
-    <ProjectReference Include="$(SolutionDir)\Mocks\Jworkz.ResonitePowerShellModule.Mocks.csproj" />
+	<ProjectReference Include="$(SolutionDir)\Core\Mocks\Jworkz.ResonitePowerShellModule.Core.Mocks.csproj" />
   </ItemGroup>
 
 </Project>

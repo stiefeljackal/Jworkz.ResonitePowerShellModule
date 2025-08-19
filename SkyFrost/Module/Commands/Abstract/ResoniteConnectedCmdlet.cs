@@ -4,6 +4,7 @@ namespace Jworkz.ResonitePowerShellModule.SkyFrost.Commands.Abstract;
 
 using Clients.Abstract;
 using Core.Commands.Abstract;
+using Core.Models.Abstract;
 
 /// <summary>
 /// Base class for cmdlets that require a Resonite connection
@@ -15,6 +16,10 @@ public class ResoniteConnectedCmdlet : BasePSCmdlet
     /// </summary>
     [Parameter(HelpMessage = "Optional client to be used. Defaults to the default current client if null.")]
     public ISkyFrostInterfaceClient? Client;
+
+    public ResoniteConnectedCmdlet() : base() { }
+
+    public ResoniteConnectedCmdlet(IFileSystem fileSystem) : base(fileSystem) { }
 
     protected override void PerformPreprocessSetup()
     {

@@ -6,7 +6,9 @@ using PathUtil = System.IO.Path;
 namespace Jworkz.ResonitePowerShellModule.SkyFrost.Commands.Assets;
 
 using Core.Utilities;
+using Core.Models.Abstract;
 using Commands.Abstract;
+using PipeBinds;
 
 /// <summary>
 /// Retrieves an asset blob from Resonite
@@ -40,6 +42,10 @@ public class GetAssetGather : ResoniteAssetInfoCmdlet
     /// </summary>
     [Parameter(Mandatory = true, ParameterSetName = PARAM_SET_ASMEMORYSTREAM)]
     public SwitchParameter AsMemoryStream;
+
+    public GetAssetGather() : base() { }
+
+    public GetAssetGather(IFileSystem fileSystem) : base(fileSystem) { }
 
     protected override void ExecuteCmdlet()
     {

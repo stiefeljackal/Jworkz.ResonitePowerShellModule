@@ -45,10 +45,9 @@ public class GetSkyFrostConfigUnitTest
 
         mockPSState.Setup(m => m.GetCurrentPwd()).Returns(STARTING_PATH);
 
-        GetSkyFrostConfig cmdlet = new()
+        GetSkyFrostConfig cmdlet = new(mockFileSystem.Object)
         {
             CommandRuntime = runtime,
-            FileSystem = mockFileSystem.Object,
             Path = path
         };
         cmdlet.PSState = mockPSState.Object;
