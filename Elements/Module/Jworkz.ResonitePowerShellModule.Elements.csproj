@@ -4,24 +4,24 @@
 
   <ItemGroup>
     <Reference Include="MimeDetective">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\MimeDetective.dll</HintPath>
+      <HintPath>$(ResonitePath)MimeDetective.dll</HintPath>
     </Reference>
     <Reference Include="Elements.Core">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\Elements.Core.dll</HintPath>
+      <HintPath>$(ResonitePath)Elements.Core.dll</HintPath>
     </Reference>
     <Reference Include="Brotli.Core">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\Brotli.Core.dll</HintPath>
+      <HintPath>$(ResonitePath)Brotli.Core.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json.Bson">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\Newtonsoft.Json.Bson.dll</HintPath>
+      <HintPath>$(ResonitePath)Newtonsoft.Json.Bson.dll</HintPath>
     </Reference>
     <Reference Include="BrotliSharpLib">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\BrotliSharpLib.dll</HintPath>
+      <HintPath>$(ResonitePath)BrotliSharpLib.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="$(ResonitePath)Resonite_Data\Managed\brolib_x64.dll">
+    <Content Include="$(ResonitePath)brolib_x64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

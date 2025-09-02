@@ -8,31 +8,31 @@
 
   <ItemGroup>
     <Reference Include="Elements.Core">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\Elements.Core.dll</HintPath>
+      <HintPath>$(ResonitePath)Elements.Core.dll</HintPath>
     </Reference>
     <Reference Include="Elements.Assets">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\Elements.Assets.dll</HintPath>
+      <HintPath>$(ResonitePath)Elements.Assets.dll</HintPath>
     </Reference>
     <Reference Include="Skyfrost.Base">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\Skyfrost.Base.dll</HintPath>
+      <HintPath>$(ResonitePath)Skyfrost.Base.dll</HintPath>
     </Reference>
     <Reference Include="Skyfrost.Base.Models">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\Skyfrost.Base.Models.dll</HintPath>
+      <HintPath>$(ResonitePath)Skyfrost.Base.Models.dll</HintPath>
     </Reference>
     <Reference Include="Hardware.Info">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\Hardware.Info.dll</HintPath>
+      <HintPath>$(ResonitePath)Hardware.Info.dll</HintPath>
     </Reference>
     <Reference Include="SignalR.Strong">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\SignalR.Strong.dll</HintPath>
+      <HintPath>$(ResonitePath)SignalR.Strong.dll</HintPath>
     </Reference>
 	<Reference Include="Microsoft.AspNetCore.Http.Connections.Common">
-	  <HintPath>$(ResonitePath)Resonite_Data\Managed\Microsoft.AspNetCore.Http.Connections.Common.dll</HintPath>
+	  <HintPath>$(ResonitePath)Microsoft.AspNetCore.Http.Connections.Common.dll</HintPath>
 	</Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <HintPath>$(ResonitePath)Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Mime-Detective">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\MimeDetective.dll</HintPath>
+      <HintPath>$(ResonitePath)MimeDetective.dll</HintPath>
     </Reference>
   </ItemGroup>
 
@@ -45,7 +45,7 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="System.Management.Automation" Version="7.5.0" />
+    <PackageReference Include="System.Management.Automation" />
   </ItemGroup>
 
   <ItemGroup>

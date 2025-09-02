@@ -8,32 +8,32 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-    <PackageReference Include="Moq" Version="4.20.72" />
-    <PackageReference Include="System.Management.Automation" Version="7.5.0" />
-    <PackageReference Include="xunit" Version="2.9.3" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="System.Management.Automation" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="6.0.4">
+    <PackageReference Include="coverlet.collector">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Module\Jworkz.ResonitePowerShellModule.SkyFrost.csproj" />
+    <ProjectReference Include="$(SolutionDir)\SkyFrost\Module\Jworkz.ResonitePowerShellModule.SkyFrost.csproj" />
 	<ProjectReference Include="$(SolutionDir)\Core\Lib\Jworkz.ResonitePowerShellModule.Core.csproj" />
 	<ProjectReference Include="$(SolutionDir)\Core\Mocks\Jworkz.ResonitePowerShellModule.Core.Mocks.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Skyfrost.Base">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\Skyfrost.Base.dll</HintPath>
+      <HintPath>$(ResonitePath)Skyfrost.Base.dll</HintPath>
     </Reference>
     <Reference Include="Skyfrost.Base.Models">
-      <HintPath>$(ResonitePath)Resonite_Data\Managed\Skyfrost.Base.Models.dll</HintPath>
+      <HintPath>$(ResonitePath)Skyfrost.Base.Models.dll</HintPath>
     </Reference>
   </ItemGroup>
 
