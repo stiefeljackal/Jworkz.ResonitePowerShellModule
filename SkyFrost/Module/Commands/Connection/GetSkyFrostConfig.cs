@@ -15,9 +15,9 @@ using Core.Utilities;
 using Core.Models.Abstract;
 
 /// <summary>
-/// Loads a SkyFrost configration that can be used to setup a SkyFrost client
+/// Loads a SkyFrost configration that can be used to setup a SkyFrost client.
 /// </summary>
-[Cmdlet(VerbsCommon.Get, "ResoniteSkyFrostConfig")]
+[Cmdlet(VerbsCommon.Get, "SfConfig")]
 [OutputType(typeof(SkyFrostConfig))]
 public class GetSkyFrostConfig : BasePSCmdlet
 {

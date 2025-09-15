@@ -5,9 +5,9 @@ namespace Jworkz.ResonitePowerShellModule.SkyFrost.Commands.Connection;
 using Core.Commands.Abstract;
 
 /// <summary>
-/// Retrieves the current CloudX client used as the default client
+/// Retrieves the current SkyFrost client used as the default client.
 /// </summary>
-[Cmdlet(VerbsCommon.Get, "ResoniteCurrentSkyFrostClient")]
+[Cmdlet(VerbsCommon.Get, "SfCurrentClient")]
 public class GetCurrentClient : BasePSCmdlet
 {
     protected override void ExecuteCmdlet()

@@ -6,10 +6,10 @@ using Commands.Abstract;
 using Core.Utilities;
 
 /// <summary>
-/// Pings the Resonite Api interface
+/// Pings the SkyFrost Api interface.
 /// </summary>
-[Cmdlet(VerbsCommon.Get, "ResonitePing")]
-public class PingApi : ResoniteConnectedCmdlet
+[Cmdlet(VerbsCommon.Get, "SfPing")]
+public class PingApi : SkyFrostConnectedCmdlet
 {
     protected override void ExecuteCmdlet()
     {

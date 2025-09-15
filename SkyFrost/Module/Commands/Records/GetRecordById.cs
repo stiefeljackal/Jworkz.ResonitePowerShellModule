@@ -8,13 +8,13 @@ using Core.Utilities;
 using SkyFrost.PipeBinds;
 
 /// <summary>
-/// Retrieves the record object by record id
+/// Retrieves the record object by record id.
 /// </summary>
-[Cmdlet(VerbsCommon.Get, "ResoniteRecordById")]
-public class GetRecordById : ResoniteConnectedCmdlet
+[Cmdlet(VerbsCommon.Get, "SfRecordById")]
+public class GetRecordById : SkyFrostConnectedCmdlet
 {
     /// <summary>
-    /// Record id of the record object
+    /// Record id of the record object.
     /// </summary>
     [Parameter(Mandatory = true, ValueFromPipeline = true)]
     public RecordIdPipeBind? RecordId;

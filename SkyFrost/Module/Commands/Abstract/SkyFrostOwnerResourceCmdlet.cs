@@ -5,25 +5,25 @@ namespace Jworkz.ResonitePowerShellModule.SkyFrost.Commands.Abstract;
 
 using PipeBinds;
 
-public abstract class ResoniteOwnerResourceCmdlet : ResoniteConnectedCmdlet
+public abstract class SkyFrostOwnerResourceCmdlet : SkyFrostConnectedCmdlet
 {
     /// <summary>
-    /// Owner of the resource
+    /// Owner of the resource.
     /// </summary>
     public virtual OwnerPipeBind? Owner { get; set; }
 
     /// <summary>
-    /// Id of the owner
+    /// Id of the owner.
     /// </summary>
     public string OwnerId => Owner?.OwnerId ?? string.Empty;
 
     /// <summary>
-    /// User type of the owner
+    /// User type of the owner.
     /// </summary>
     public OwnerTypeEnum OwnerType => Owner?.OwnerType ?? OwnerTypeEnum.INVALID;
 
     /// <summary>
-    /// Ensure the owner is either a user or group type
+    /// Ensure the owner is either a user or group type.
     /// </summary>
     /// <exception cref="PSInvalidOperationException"></exception>
     protected override void ExecuteCmdlet()
