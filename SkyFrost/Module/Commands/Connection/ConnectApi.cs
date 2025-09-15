@@ -80,11 +80,6 @@ public class ConnectApi : BasePSCmdlet
         }
 
         _productVersion = PSVersionInfo.PSVersion.ToString();
-
-        var noopDelegate = [ExcludeFromCodeCoverage] (string msg) => { };
-        UniLog.OnError += noopDelegate;
-        UniLog.OnWarning += noopDelegate;
-        UniLog.OnLog += noopDelegate;
     }
     
     public ConnectApi()
@@ -99,9 +94,9 @@ public class ConnectApi : BasePSCmdlet
             throw new Exception("Provided PSCredential object is null");
         }
 
-        var client = Connect().GetAwaiter().GetResult();
+        var client = BindTaskToUniLog(Connect()).GetAwaiterResult();
 
-        if (ReturnClient.ToBool())
+        if (ReturnClient)
         {
             WriteObject(client);
         }
