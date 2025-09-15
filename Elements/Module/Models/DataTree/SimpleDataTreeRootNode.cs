@@ -18,7 +18,11 @@ public class SimpleDataTreeRootNode : SimpleDataTreeNode
 
         if (!hasSlotRoot)
         {
-            _dataKeyValuePairs.TryGetValue("Object", out rootSlot);
+            hasSlotRoot = _dataKeyValuePairs.TryGetValue("Object", out rootSlot);
+        }
+        if (!hasSlotRoot)
+        {
+            _dataKeyValuePairs.TryGetValue("Root", out rootSlot);
         }
 
         RootSlot = new SlotNode(rootSlot as DataTreeDictionary ?? throw new Exception("Unable to create a simple data tree root node."));
