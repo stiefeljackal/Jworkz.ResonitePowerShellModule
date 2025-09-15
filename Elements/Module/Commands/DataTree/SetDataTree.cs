@@ -13,7 +13,7 @@ namespace Jworkz.ResonitePowerShellModule.Elements.Commands.DataTree;
 using Core.Commands.Abstract;
 using Jworkz.ResonitePowerShellModule.Elements.Models.DataTree;
 
-[Cmdlet("Set", "ResoniteDataTree", DefaultParameterSetName = PARAM_SET_SAVETOFILE)]
+[Cmdlet("Set", "ResDataTree", DefaultParameterSetName = PARAM_SET_SAVETOFILE)]
 public class SetDataTree : BasePSCmdlet
 {
     private const string PARAM_SET_SAVETOFILE = "Save to File";

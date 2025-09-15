@@ -11,7 +11,7 @@ namespace Jworkz.ResonitePowerShellModule.Elements.Commands.DataTree;
 using Core.Commands.Abstract;
 using Models.DataTree;
 
-[Cmdlet("Get", "ResoniteDataTree", DefaultParameterSetName = PARAM_SET_LOADFILEPATH)]
+[Cmdlet("Get", "ResDataTree", DefaultParameterSetName = PARAM_SET_LOADFILEPATH)]
 public class GetDataTree : BasePSCmdlet
 {
     private const string PARAM_SET_LOADFILEPATH = "Load from File Path";

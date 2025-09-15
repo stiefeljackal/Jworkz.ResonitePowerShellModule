@@ -5,7 +5,7 @@ namespace Jworkz.ResonitePowerShellModule.Elements.Commands.DataTree;
 using Elements.Models.DataTree;
 using Elements.Commands.Abstract;
 
-[Cmdlet(VerbsCommon.Find, "ResoniteComponentInDataTree", DefaultParameterSetName = PARAM_SET_FINDBYTYPE)]
+[Cmdlet(VerbsCommon.Find, "ResComponentInDataTree", DefaultParameterSetName = PARAM_SET_FINDBYTYPE)]
 public class FindComponentInDataTree : ResoniteSlotNodeCmdlet
 {
     private const string PARAM_SET_FINDBYTYPE = "Find Component by Type";
