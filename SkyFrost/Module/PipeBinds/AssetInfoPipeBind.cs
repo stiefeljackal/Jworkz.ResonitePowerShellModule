@@ -10,20 +10,9 @@ public class AssetInfoPipeBind
     /// <summary>
     /// Hash id of the AssetInfo object
     /// </summary>
-    public string HashId {
-        get
-        {
-            var hashId = AssetInfo.AssetHash;
+    public string HashId => AssetInfo.AssetHash;
 
-            if (string.IsNullOrEmpty(hashId))
-            {
-                throw new PSArgumentException("Hash id cannot be empty or null.");
-            }
-            return hashId;
-        }
-    }
-
-    public AssetInfoPipeBind(string hashId)
+    public AssetInfoPipeBind(string? hashId)
     {
         AssetInfo = new AssetInfo
         {
@@ -35,4 +24,8 @@ public class AssetInfoPipeBind
     {
         AssetInfo = assetInfo;
     }
+
+    public static implicit operator AssetInfoPipeBind(string hashId) => new AssetInfoPipeBind(hashId);
+
+    public static implicit operator AssetInfoPipeBind(AssetInfo assetInfo) => new AssetInfoPipeBind(assetInfo);
 }

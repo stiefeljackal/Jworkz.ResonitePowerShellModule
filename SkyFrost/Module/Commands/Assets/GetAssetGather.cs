@@ -1,5 +1,6 @@
 ﻿using System.Management.Automation;
 using System.Security.Cryptography;
+using MimeDetective;
 
 using PathUtil = System.IO.Path;
 
@@ -14,28 +15,49 @@ using PipeBinds;
 /// Retrieves an asset blob from Resonite
 /// </summary>
 [Cmdlet(VerbsCommon.Get, "ResoniteAssetGather", DefaultParameterSetName = PARAM_SET_SAVEFILE)]
-public class GetAssetGather : ResoniteAssetInfoCmdlet
+public sealed class GetAssetGather : ResoniteAssetInfoCmdlet
 {
-    private const string PARAM_SET_SAVEFILE = "Save to local path";
-    private const string PARAM_SET_ASMEMORYSTREAM = "Return as MemoryStream";
+    private const string PARAM_SET_SAVEFILE = "Save asset to local path";
+    private const string PARAM_SET_SAVEFILEPIPEBIND = "Save asset from pipebind to local path";
+    private const string PARAM_SET_ASMEMORYSTREAM = "Return asset as MemoryStream";
 
     /// <summary>
-    /// Optional path to save the downloaded file to
+    /// Hash of the asset
     /// </summary>
-    [Parameter(Mandatory = true, ParameterSetName = PARAM_SET_SAVEFILE)]
-    public string Path = string.Empty;
+    [Parameter(Mandatory = true, Position = 0, ParameterSetName = PARAM_SET_SAVEFILE)]
+    [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = PARAM_SET_SAVEFILEPIPEBIND)]
+    [Parameter(Mandatory = true, Position = 0, ParameterSetName = PARAM_SET_ASMEMORYSTREAM)]
+    [ValidateNotNull]
+    public override required AssetInfoPipeBind AssetInfo { get; set; }
+
+    /// <summary>
+    /// Directory path to save the downloaded file to
+    /// </summary>
+    [Parameter(ParameterSetName = PARAM_SET_SAVEFILE)]
+    [Parameter(ParameterSetName = PARAM_SET_SAVEFILEPIPEBIND)]
+    [Alias("DirectoryPath")]
+    public string DirPath = string.Empty;
 
     /// <summary>
     /// Optional file name to save the asset as; defaults to the hash id if one is not provided
     /// </summary>
-    [Parameter(Mandatory = false, ParameterSetName = PARAM_SET_SAVEFILE)]
+    [Parameter(ParameterSetName = PARAM_SET_SAVEFILE)]
+    [Parameter(ParameterSetName = PARAM_SET_SAVEFILEPIPEBIND)]
     public string? Filename;
 
     /// <summary>
     /// Switch that determines if the file should be saved with its extension type
     /// </summary>
-    [Parameter(Mandatory = false, ParameterSetName = PARAM_SET_SAVEFILE)]
+    [Parameter(ParameterSetName = PARAM_SET_SAVEFILE)]
+    [Parameter(ParameterSetName = PARAM_SET_SAVEFILEPIPEBIND)]
     public SwitchParameter IncludeExtension;
+
+    /// <summary>
+    /// Switch that determines if the directory should be created if it does not exist.
+    /// </summary>
+    [Parameter(ParameterSetName = PARAM_SET_SAVEFILE)]
+    [Parameter(ParameterSetName = PARAM_SET_SAVEFILEPIPEBIND)]
+    public SwitchParameter CreateDirectory;
 
     /// <summary>
     /// Switch that determines if the stream should be returned instead
@@ -47,52 +69,73 @@ public class GetAssetGather : ResoniteAssetInfoCmdlet
 
     public GetAssetGather(IFileSystem fileSystem) : base(fileSystem) { }
 
+    protected override void PrepareCmdlet()
+    {
+        base.PrepareCmdlet();
+        if (string.IsNullOrEmpty(DirPath))
+        {
+            DirPath = ".";
+        }
+    }
+
     protected override void ExecuteCmdlet()
     {
         var hashId = HashId;
-        var stream = Client!.GatherAsset(hashId).GetAwaiter().GetResult();
+        var stream = Client!.GatherAsset(hashId).GetAwaiterResult();
 
-        var memoryStream = new MemoryStream();
-        stream.CopyTo(memoryStream);
-        stream.Dispose();
 
-        switch (ParameterSetName)
+        if (AsMemoryStream)
         {
-            case PARAM_SET_SAVEFILE:
-                var filename = Filename ?? hashId;
-                var bytes = memoryStream.ToArray();
-                memoryStream.Dispose();
-
-                if (IncludeExtension.ToBool())
-                {
-                    var fileType = MimeExaminer.Inspect(bytes);
-                    var extension = fileType.Extension;
-
-                    if (!string.IsNullOrEmpty(extension))
-                    {
-                        filename += $".{extension}";
-                    }
-                    else
-                    {
-                        WriteVerbose($"Unable to find extension for '{filename}'");
-                    }
-                }
-                var fullPath = PathUtil.Combine(Path, filename);
-                using (var fileStream = new FileStream(fullPath, FileMode.Create))
-                {
-                    fileStream.WriteAsync(bytes).ConfigureAwait(false);
-                    using (var sha = SHA256.Create())
-                    {
-                        if (sha.ComputeHash(bytes).ToHex() != hashId)
-                        {
-                            WriteWarning("The chucksum of the downloaded file does not match its hash id");
-                        }
-                    }
-                }
-                break;
-            default:
-                WriteObject(memoryStream);
-                break;
+            MemoryStream memoryStream = new();
+            stream.CopyTo(memoryStream);
+            stream.Dispose();
+            memoryStream.Position = 0;
+            WriteObject(memoryStream);
+            return;
         }
+
+        var filename = Filename ?? hashId;
+        FileType? fileType = null;
+
+        if (CreateDirectory && !FileSystem.DirectoryExists(DirPath))
+        {
+            FileSystem.CreateDirectory(DirPath);
+        }
+
+        var fullPath = PathUtil.Combine(DirPath, filename);
+        using (var fileStream = FileSystem.CreateFileStream(fullPath, FileMode.Create))
+        {
+            stream.CopyToAsync(fileStream).GetAwaiterResult();
+            stream.Dispose();
+            using (var sha = SHA256.Create())
+            {
+                fileStream.Position = 0;
+                if (sha.ComputeHash(fileStream).ToHex() != hashId)
+                {
+                    WriteWarning("The chucksum of the downloaded file does not match its hash id");
+                }
+            }
+            if (IncludeExtension)
+            {
+                fileStream.Position = 0;
+                fileType = FileSystem.GetFileType(fileStream);
+            }
+        }
+
+        if (fileType == null)
+        {
+            return;
+        }
+
+        var extension = fileType.GetExtension();
+
+        if (extension == string.Empty)
+        {
+            WriteVerbose($"Unable to find extension for '{filename}'");
+            return;
+        }
+
+        filename += $".{extension}";
+        FileSystem.RenameFile(fullPath, PathUtil.Combine(DirPath, filename), true);
     }
 }

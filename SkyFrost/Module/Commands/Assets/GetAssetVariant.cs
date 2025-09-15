@@ -6,11 +6,14 @@ using Commands.Abstract;
 using Core.Utilities;
 
 /// <summary>
-/// Retrieves the asset variants that the cloud has registered.
+/// Retrieves all available variants for a specific asset from SkyFrost based on its hash id.
 /// </summary>
-[Cmdlet(VerbsCommon.Get, "ResoniteAvailableAssetVariants")]
-public class GetAvailableAssetVariants : ResoniteAssetInfoCmdlet
+[Cmdlet(VerbsCommon.Get, "ResoniteAssetVariant")]
+public class GetAssetVariant : ResoniteAssetInfoCmdlet
 {
+    /// <summary>
+    /// Executes the cmdlet to retrieve all available asset variants based on the specified hash id.
+    /// </summary>
     protected override void ExecuteCmdlet()
     {
         var availableVariantsEnumerable = Client!.GetAvailableAssetVariants(HashId).GetAwaiterResult();

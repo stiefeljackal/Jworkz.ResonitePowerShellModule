@@ -12,6 +12,8 @@ internal static class GlobalConstants
     public const string MOCK_GROUP_NAME = "Group Mock";
     public const string MOCK_MACHINE_ID = "M-Mock";
     public const string MOCK_RECORD_ID = "R-00000000-0000-4000-0000-000000000000";
+    public const string MOCK_HASH = "5752c2d8db5021e7dd34d9fc49546f63fce4ab862a9f192383e95d44fe585a9f";
+    public const string MOCK_DIR_PATH = "Z:\\mock\\path";
 
     public static readonly User MOCK_USER = new()
     {

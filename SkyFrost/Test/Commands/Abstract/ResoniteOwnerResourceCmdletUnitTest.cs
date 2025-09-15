@@ -61,20 +61,18 @@ public class ResoniteOwnerResourceCmdletUnitTest
     }
 
     public static IEnumerable<object[]> ValidOwnerData =>
-        new object[][]
-        {
+        [
             [new User { Id = GlobalConstants.MOCK_USER_ID }, OwnerType.User],
             [new Group { GroupId = GlobalConstants.MOCK_GROUP_ID }, OwnerType.Group],
             [GlobalConstants.MOCK_USER_ID, OwnerType.User],
             [GlobalConstants.MOCK_GROUP_ID, OwnerType.Group],
-        };
+        ];
 
     public static IEnumerable<object?[]> InvalidOwnerData =>
-        new object?[][]
-        {
+        [
             [new OwnerPipeBind(string.Empty)],
             [new User { Id = GlobalConstants.MOCK_MACHINE_ID }],
             [(OwnerPipeBind?)null],
             [GlobalConstants.MOCK_MACHINE_ID]
-        };
+        ];
 }

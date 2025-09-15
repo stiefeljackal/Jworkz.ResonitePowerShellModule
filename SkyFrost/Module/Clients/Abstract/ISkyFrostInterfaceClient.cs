@@ -22,7 +22,7 @@ public interface ISkyFrostInterfaceClient
 
     Task<AssetInfo> GetGlobalAssetInfo(string hashId);
 
-    Task<AssetInfo> GetOwnedAssetInfo(string hashId, string ownerId = "");
+    Task<AssetInfo> GetOwnedAssetInfo(string hashId, string? ownerId = "");
 
     Task<Record> GetRecord(RecordId recordId);
 

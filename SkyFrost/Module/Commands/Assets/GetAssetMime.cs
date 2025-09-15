@@ -6,16 +6,17 @@ using Commands.Abstract;
 using Core.Utilities;
 
 /// <summary>
-/// Retrives the mime type of the passed AssetInfo object or hash id
+/// Retrieves the MIME type of an asset from SkyFrost based on its hash id.
 /// </summary>
 [Cmdlet(VerbsCommon.Get, "ResoniteAssetMime")]
 public class GetAssetMime : ResoniteAssetInfoCmdlet
 {
+    /// <summary>
+    /// Executes the cmdlet to retrieve the MIME type of the asset based on the specified hash id.
+    /// </summary>
     protected override void ExecuteCmdlet()
     {
-        var hashId = HashId;
-        var mimeType = Client!.GetAssetMime(hashId).GetAwaiterResult();
-
+        var mimeType = Client!.GetAssetMime(HashId).GetAwaiterResult();
         WriteObject(mimeType);
     }
 }

@@ -97,7 +97,14 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
 
     public async Task<AssetInfo> GetOwnedAssetInfo(string hashId, string? ownerId = "")
     {
-        var result = string.IsNullOrEmpty(ownerId)
+        var isOwnerIdNullOrEmpty = string.IsNullOrEmpty(ownerId);
+
+        if (isOwnerIdNullOrEmpty)
+        {
+            ThrowIfCurrentUserIsAnonymous();
+        }
+
+        var result = isOwnerIdNullOrEmpty
             ? await Raw.Assets.GetUserAssetInfo(hashId)
             : await Raw.Assets.GetAssetInfo(ownerId, hashId);
 
@@ -282,6 +289,14 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
             var state = cloudResult.State;
             var contentMsg = content != null ? $" | {content}" : string.Empty;
             throw new Exception($"{(string.IsNullOrEmpty(msg) ? $"{Raw.Platform.Name} returned a cloud error for this request" : msg)}: {state}{contentMsg}");
+        }
+    }
+
+    private void ThrowIfCurrentUserIsAnonymous()
+    {
+        if (CurrentUser?.Id == null)
+        {
+            throw new InvalidOperationException("The client is set as anonymous. This operation can only run with a logged in user.");
         }
     }
 }
