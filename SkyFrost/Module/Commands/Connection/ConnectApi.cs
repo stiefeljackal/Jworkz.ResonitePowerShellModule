@@ -108,16 +108,8 @@ public class ConnectApi : BasePSCmdlet
 
     protected async Task<ISkyFrostInterfaceClient> Connect()
     {
-        ISkyFrostInterfaceClient? client;
-
-        if (Config == null)
-        {
-            Config = SkyFrostConfig.SKYFROST_PRODUCTION;
-        }
-
-        client = CreateClient(_productName, _productVersion, DisableSignalR.ToBool(), Config);
-        var userStatusSrc = new PowerShellStatusSource(client, _productName, _productVersion);
-        client.StatusSource = userStatusSrc;
+        var client = CreateClient(_productName, _productVersion, DisableSignalR, Config!);
+        client.StatusSource = new PowerShellStatusSource(client, _productName, _productVersion);
 
         if (Credential != null)
         {

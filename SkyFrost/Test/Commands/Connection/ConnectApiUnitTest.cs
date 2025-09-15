@@ -65,7 +65,7 @@ public class ConnectApiUnitTest
     }
 
     [Fact]
-    public void ExecuteCmdlet_NullCredentials_WritesError()
+    public void ExecuteCmdlet_NullCredentials_ThrowsError()
     {
         MockCommandRuntime<ISkyFrostInterfaceClient> runtime = new();
         Mock<ISkyFrostInterfaceClient> mockSkyFrostClient = new();
@@ -77,12 +77,7 @@ public class ConnectApiUnitTest
             CreateClient = (string _1, string _2, bool _3, SkyFrostConfig _4) => mockSkyFrostClient.Object
         };
 
-        cmdlet.StartProcessExecution();
-
-
-        var errorRecord = runtime.Errors.First();
-        Assert.NotNull(errorRecord);
-        Assert.Equal("Provided PSCredential object is null", errorRecord.Exception.Message);
+        Assert.Throws<PSInvalidOperationException>(cmdlet.StartProcessExecution);
     }
 
     [Fact]
