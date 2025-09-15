@@ -8,7 +8,7 @@ using Core.Models.Abstract;
 /// <summary>
 /// Base class for cmdlets that require an AssetInfo object or hash id string.
 /// </summary>
-public abstract class ResoniteAssetInfoCmdlet : ResoniteConnectedCmdlet
+public abstract class SkyFrostAssetInfoCmdlet : SkyFrostConnectedCmdlet
 {
     /// <summary>
     /// AssetInfo object or hash id string representing the asset.
@@ -21,9 +21,9 @@ public abstract class ResoniteAssetInfoCmdlet : ResoniteConnectedCmdlet
     /// </summary>
     public string HashId => AssetInfo.HashId;
 
-    public ResoniteAssetInfoCmdlet() : base() { }
+    public SkyFrostAssetInfoCmdlet() : base() { }
 
-    public ResoniteAssetInfoCmdlet(IFileSystem fileSystem) : base(fileSystem) { }
+    public SkyFrostAssetInfoCmdlet(IFileSystem fileSystem) : base(fileSystem) { }
 
     /// <summary>
     /// Prepares the cmdlet for execution by performing necessary validation and setup.

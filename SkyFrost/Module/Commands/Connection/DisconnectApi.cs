@@ -6,9 +6,9 @@ using Core.Commands.Abstract;
 using Clients.Abstract;
 
 /// <summary>
-/// Disconnects from the Resonite Api interface via CloudX with either the default or provided client
+/// Disconnects from the SkyFrost Api interface with either the default or provided client
 /// </summary>
-[Cmdlet("Disconnect", "ResoniteApi")]
+[Cmdlet("Disconnect", "SfApi")]
 [OutputType(typeof(void))]
 public class DisconnectApi : BasePSCmdlet
 {

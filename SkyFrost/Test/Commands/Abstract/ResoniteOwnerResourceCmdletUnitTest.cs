@@ -44,10 +44,10 @@ public class ResoniteOwnerResourceCmdletUnitTest
     /// <param name="ownerMock">The owner pipebind mock.</param>
     /// <param name="callBase">true if base calls should be performed; otherwise, false.</param>
     /// <returns></returns>
-    private static ResoniteOwnerResourceCmdlet SetupCmdlet(OwnerPipeBind? ownerMock, bool callBase = true)
+    private static SkyFrostOwnerResourceCmdlet SetupCmdlet(OwnerPipeBind? ownerMock, bool callBase = true)
     {
         Mock<ISkyFrostInterfaceClient> skyFrostClientMock = new();
-        Mock<ResoniteOwnerResourceCmdlet> cmdletMock = new();
+        Mock<SkyFrostOwnerResourceCmdlet> cmdletMock = new();
         cmdletMock.CallBase = callBase;
         cmdletMock.SetupAllProperties();
 

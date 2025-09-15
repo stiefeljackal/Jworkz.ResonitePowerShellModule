@@ -12,10 +12,10 @@ using Commands.Abstract;
 using PipeBinds;
 
 /// <summary>
-/// Retrieves an asset blob from Resonite
+/// Retrieves an asset blob from SkyFrost.
 /// </summary>
-[Cmdlet(VerbsCommon.Get, "ResoniteAssetGather", DefaultParameterSetName = PARAM_SET_SAVEFILE)]
-public sealed class GetAssetGather : ResoniteAssetInfoCmdlet
+[Cmdlet(VerbsCommon.Get, "SfAssetGather", DefaultParameterSetName = PARAM_SET_SAVEFILE)]
+public sealed class GetAssetGather : SkyFrostAssetInfoCmdlet
 {
     private const string PARAM_SET_SAVEFILE = "Save asset to local path";
     private const string PARAM_SET_SAVEFILEPIPEBIND = "Save asset from pipebind to local path";

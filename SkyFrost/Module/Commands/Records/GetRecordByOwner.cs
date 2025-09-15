@@ -10,9 +10,9 @@ using PipeBinds;
 /// <summary>
 /// Retrieves records associated by the Owner
 /// </summary>
-[Cmdlet(VerbsCommon.Get, "ResoniteRecordByOwner", DefaultParameterSetName = PARAM_SET_RECORDSPATHFILTER)]
+[Cmdlet(VerbsCommon.Get, "SfRecordByOwner", DefaultParameterSetName = PARAM_SET_RECORDSPATHFILTER)]
 [OutputType(typeof(Record))]
-public class GetRecordByOwner : ResoniteOwnerResourceCmdlet
+public class GetRecordByOwner : SkyFrostOwnerResourceCmdlet
 {
     private const string PARAM_SET_RECORDSPATHFILTER = "Filter records by path";
     private const string PARAM_SET_RECORDSPATHFILTERINCLUDINGHIERARCHY = "Filter records by path (include the hierarchy)";

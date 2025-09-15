@@ -10,8 +10,8 @@ using SkyFrost.PipeBinds;
 /// Retrieves information about an asset from SkyFrost based on its hash id or 
 /// AssetInfo object.
 /// </summary>
-[Cmdlet(VerbsCommon.Get, "ResoniteAssetInfo", DefaultParameterSetName = PARAM_SET_GETOWNEDASSET)]
-public class GetAssetInfo : ResoniteAssetInfoCmdlet
+[Cmdlet(VerbsCommon.Get, "SfAssetInfo", DefaultParameterSetName = PARAM_SET_GETOWNEDASSET)]
+public class GetAssetInfo : SkyFrostAssetInfoCmdlet
 {
     private const string PARAM_SET_GETOWNEDASSET = "Without a pipebind, get asset based on Owned Route";
     private const string PARAM_SET_GETOWNEDASSETPIPEBIND = "With a pipebind, get asset based on Owned Route";

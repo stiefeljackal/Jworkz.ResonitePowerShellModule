@@ -11,9 +11,9 @@ using Clients;
 using Clients.Abstract;
 
 /// <summary>
-/// Connects to the Resonite Api interface via SkyFrost with either the default or provided Uris
+/// Connects to the SkyFrost Api interface with either the default or provided Uris
 /// </summary>
-[Cmdlet("Connect", "ResoniteApi", DefaultParameterSetName = PARAM_SET_CREDENTIALONLY)]
+[Cmdlet("Connect", "SfApi", DefaultParameterSetName = PARAM_SET_CREDENTIALONLY)]
 [OutputType([typeof(ISkyFrostInterfaceClient), typeof(void)])]
 public class ConnectApi : BasePSCmdlet
 {
@@ -25,7 +25,7 @@ public class ConnectApi : BasePSCmdlet
     private static readonly string _productVersion;
 
     /// <summary>
-    /// Resonite credential to use with the SkyfrostInterface client
+    /// SkyFrost credential (usually a Resonite credential) to use with the SkyfrostInterface client
     /// </summary>
     [Parameter(Mandatory = true, ParameterSetName = PARAM_SET_CREDENTIALONLY, Position = 0)]
     public PSCredential? Credential { get; set; }

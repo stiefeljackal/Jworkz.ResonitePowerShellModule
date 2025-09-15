@@ -5,10 +5,10 @@ namespace Jworkz.ResonitePowerShellModule.SkyFrost.Commands.Principal;
 using Commands.Abstract;
 
 /// <summary>
-/// Retrieves the current Resonite user who had connected to the cloud using this interface
+/// Retrieves the current user who had connected to the SkyFrost infrastructure using this interface.
 /// </summary>
-[Cmdlet(VerbsCommon.Get, "ResoniteCurrentUser")]
-public class GetCurrentUser : ResoniteConnectedCmdlet
+[Cmdlet(VerbsCommon.Get, "SfCurrentUser")]
+public class GetCurrentUser : SkyFrostConnectedCmdlet
 {
     protected override void ExecuteCmdlet()
     {

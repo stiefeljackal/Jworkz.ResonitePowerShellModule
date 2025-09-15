@@ -47,23 +47,23 @@ public class ResoniteAssetInfoCmdletUnitTest
     public void CreateCmd_FileSystemDI_UsesCustomFileSystem()
     {
         var fileSystemMock = new Mock<IFileSystem>();
-        var cmdlet = new Mock<ResoniteAssetInfoCmdlet>(fileSystemMock.Object) { CallBase = true }.Object;
+        var cmdlet = new Mock<SkyFrostAssetInfoCmdlet>(fileSystemMock.Object) { CallBase = true }.Object;
         Assert.Equal(fileSystemMock.Object, cmdlet.FileSystem);
     }
 
     /// <summary>
-    /// Configures and returns a mock instance of the <see cref="ResoniteAssetInfoCmdlet"/> class for testing purposes.
+    /// Configures and returns a mock instance of the <see cref="SkyFrostAssetInfoCmdlet"/> class for testing purposes.
     /// </summary>
     /// <param name="assetInfoPipeBindMock">A mock implementation of <see cref="AssetInfoPipeBind"/> to be assigned to the <see
-    /// cref="ResoniteAssetInfoCmdlet.AssetInfo"/> property.</param>
+    /// cref="SkyFrostAssetInfoCmdlet.AssetInfo"/> property.</param>
     /// <param name="callBase">A value indicating whether the base class implementation of the mocked cmdlet should be called.  Defaults to
     /// <see langword="true"/>.</param>
-    /// <returns>A fully configured mock instance of <see cref="ResoniteAssetInfoCmdlet"/> with its properties and dependencies
+    /// <returns>A fully configured mock instance of <see cref="SkyFrostAssetInfoCmdlet"/> with its properties and dependencies
     /// set up.</returns>
-    private static ResoniteAssetInfoCmdlet SetupCmdlet(AssetInfoPipeBind assetInfoPipeBindMock, bool callBase = true)
+    private static SkyFrostAssetInfoCmdlet SetupCmdlet(AssetInfoPipeBind assetInfoPipeBindMock, bool callBase = true)
     {
         Mock<ISkyFrostInterfaceClient> skyFrostClientMock = new();
-        Mock<ResoniteAssetInfoCmdlet> cmdletMock = new();
+        Mock<SkyFrostAssetInfoCmdlet> cmdletMock = new();
         cmdletMock.CallBase = callBase;
 
         var cmdlet = cmdletMock.Object;
