@@ -28,30 +28,34 @@ public class ConnectApi : BasePSCmdlet
     /// Resonite credential to use with the SkyfrostInterface client
     /// </summary>
     [Parameter(Mandatory = true, ParameterSetName = PARAM_SET_CREDENTIALONLY, Position = 0)]
-    public PSCredential? Credential;
+    public PSCredential? Credential { get; set; }
 
     /// <summary>
     /// Configuration to interact with SkyFrost compatible infrastructure
     /// </summary>
     [Parameter(Mandatory = false, ParameterSetName = PARAM_SET_CREDENTIALONLY)]
-    public SkyFrostConfig? Config;
+    [Parameter(Mandatory = false, ParameterSetName = PARAM_SET_ANONONLY)]
+    [ValidateNotNull]
+    public SkyFrostConfig Config { get; set; } = SkyFrostConfig.SKYFROST_PRODUCTION;
 
     /// <summary>
     /// Determines if the client should login without credentials (anonymous)
     /// </summary>
-    [Parameter(Mandatory = true, ParameterSetName = PARAM_SET_ANONONLY, Position = 0)]
+    [Parameter(Mandatory = true, ParameterSetName = PARAM_SET_ANONONLY)]
     public SwitchParameter LoginAsAnonymous;
 
     /// <summary>
     /// Determines if the client should be returned instead of being set as the current
     /// </summary>
     [Parameter(Mandatory = false, ParameterSetName = PARAM_SET_CREDENTIALONLY)]
+    [Parameter(Mandatory = false, ParameterSetName = PARAM_SET_ANONONLY)]
     public SwitchParameter ReturnClient;
 
     /// <summary>
     /// Determines if SignalR should be disabled
     /// </summary>
     [Parameter(Mandatory = false, ParameterSetName = PARAM_SET_CREDENTIALONLY)]
+    [Parameter(Mandatory = false, ParameterSetName = PARAM_SET_ANONONLY)]
     public SwitchParameter DisableSignalR;
 
     /// <summary>
@@ -90,10 +94,9 @@ public class ConnectApi : BasePSCmdlet
 
     protected override void ExecuteCmdlet()
     {
-        if (!LoginAsAnonymous.ToBool() && Credential == null)
+        if (!LoginAsAnonymous && Credential == null)
         {
-            this.WriteCredentialNull();
-            return;
+            throw new Exception("Provided PSCredential object is null");
         }
 
         var client = Connect().GetAwaiter().GetResult();
