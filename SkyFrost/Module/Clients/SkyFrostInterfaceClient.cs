@@ -213,9 +213,14 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
         return variants;
     }
 
-    public async Task<User> GetUser(string userId)
+    public async Task<User> GetUser(string userIdOrName)
     {
-        var user = (await _skyfrostInterface.Users.GetUser(userId)).Entity;
+        var usersManager = _skyfrostInterface.Users;
+
+        var user = (userIdOrName.IsUserId()
+            ? await usersManager.GetUser(userIdOrName)
+            : await usersManager.GetUserByName(userIdOrName)).Entity;
+
         return user;
     }
 
