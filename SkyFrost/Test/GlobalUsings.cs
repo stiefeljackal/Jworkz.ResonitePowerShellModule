@@ -1,3 +1,5 @@
 global using Xunit;
-global using Jworkz.ResonitePowerShellModule.Core.Mocks;
+global using Jworkz.PowerShellModuleTestUtility;
+global using Jworkz.PowerShellModuleTestUtility.Mocks;
+global using Jworkz.PowerShellModuleTestUtility.Extensions;
 global using Moq;
