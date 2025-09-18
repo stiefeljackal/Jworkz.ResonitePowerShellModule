@@ -224,6 +224,13 @@ public class SkyFrostInterfaceClient : ISkyFrostInterfaceClient
         return user;
     }
 
+    public async Task<IEnumerable<User>> GetUsers(string query)
+    {
+        var users = (await _skyfrostInterface.Users.GetUsers(query)).Entity;
+
+        return users;
+    }
+
     public async Task<Group> GetGroup(string groupId)
     {
         var group = (await _skyfrostInterface.Groups.GetGroup(groupId)).Entity;

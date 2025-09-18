@@ -26,4 +26,11 @@ internal static class GlobalConstants
         GroupId = MOCK_GROUP_ID,
         Name = MOCK_GROUP_NAME
     };
+
+    public static readonly User[] MOCK_USER_LIST =
+    [
+        GlobalConstants.MOCK_USER,
+        GlobalConstants.MOCK_USER,
+        GlobalConstants.MOCK_USER,
+    ];
 }
