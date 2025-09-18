@@ -44,6 +44,8 @@ public interface ISkyFrostInterfaceClient
 
     Task<User> GetUser(string userId);
 
+    Task<IEnumerable<User>> GetUsers(string query);
+
     Task<Group> GetGroup(string groupId);
 
     Task Login(PSCredential credentials, string totp = "");
