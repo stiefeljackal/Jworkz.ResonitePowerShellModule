@@ -2,3 +2,7 @@
 	path = Core
 	url = https://github.com/stiefeljackal/Jworkz.ResonitePowerShellModule.Core.git
 	ignore = dirty
+[submodule "TestUtility"]
+	path = TestUtility
+	url = https://github.com/stiefeljackal/Jworkz.PowerShellModuleTestUtility.git
+	ignore = dirty
